@@ -84,8 +84,8 @@ namespace AvMobile.Controllers
         }
         [HttpPost] [ValidateAntiForgeryToken]
         public ActionResult Delete(long id) {
-            Aparelho fabricante = context.Tbl_Aparelho.Find(id);
-            context.Tbl_Aparelho.Remove(fabricante);
+            Aparelho aparelho = context.Tbl_Aparelho.Find(id);
+            context.Tbl_Aparelho.Remove(aparelho);
             context.SaveChanges();
             return RedirectToAction("Index");
         }

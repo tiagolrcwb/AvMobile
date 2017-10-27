@@ -8,6 +8,10 @@ namespace AvMobile.Models
     public class Imei
     {
         public int id { get; set; }
-        public int num_imei { get; set; }
+        public long num_imei { get; set; }
+
+        public int? aparelhoId { get; set; }
+
+        public Aparelho aparelho { get; set; }
     }
 }
