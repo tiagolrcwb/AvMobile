@@ -14,10 +14,16 @@ namespace AvMobile.Controllers
     public class AparelhosController : Controller
     {
         private EFContext context = new EFContext();
-        
 
-        /*######################## INDEX #############################*/
+        /*######################## LISTA #############################*/
         public ActionResult Index()
+        {
+            return View();
+        }
+
+
+        /*######################## LISTA #############################*/
+        public ActionResult Lista()
         {
             return View(context.Tbl_Aparelho.OrderBy(m=>m.modelo));
         }

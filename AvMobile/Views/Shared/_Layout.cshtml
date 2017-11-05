@@ -1,0 +1,69 @@
+﻿<!DOCTYPE	html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/content/bootstrap.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/content/avMobile.css")" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="page-header	text-center titulo">
+                <h1>
+                    AvaliaMobile
+                </h1>
+                    <small class="text-left">
+                        Software de Avaliação de Celulares
+                    </small>
+               
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-3 col-md-3 menuPrincipal">
+                <div class="btn-group-vertical col-md-12 botoesMenuPrincipal" role="group" aria-label="...">
+                    @Html.ActionLink("Home", "Index", "Aparelhos", new object { }, new { @class = "btn" })
+                    
+                    <div class="btn-group">
+                        <button class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Aparelhos <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Cadastro de Aparelhos", "Create", "Aparelhos")</li>
+                            <li>@Html.ActionLink("Listar Aparelhos", "Lista", "Aparelhos")</li>
+                            
+                            <li role="separator" class="divider"></li>
+                            <li>@Html.ActionLink("Cadastro de Imei", "Index", "Imeis")</li>
+                        </ul>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Filiais <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Cadastro Filiais", "Create", "Filiais")</li>
+                            <li>@Html.ActionLink("Consulta de Filiais", "Index", "Filiais")</li>
+
+                            
+                        </ul>
+                    </div>
+                    @Html.ActionLink("Filiais", "Index", "Filiais", new object { }, new { @class = "btn" })
+                </div>
+            </div>
+            <div class="col-xs-9 col-md-9">
+                <br />
+                @RenderBody()
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-xs-12 col-md-12 bg-danger">
+                3.2	LAYOUTS	61
+                <small>Layout com Bootstrap</small>
+            </div>
+        </div>
+    </div>
+    <script src="@Url.Content("~/scripts/jquery-1.10.2.js")"></script>
+    <script src="@Url.Content("~/scripts/bootstrap.js")"></script>
+</body>
+</html> 

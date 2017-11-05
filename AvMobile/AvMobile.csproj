@@ -120,6 +120,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\avMobile.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -169,7 +170,7 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <None Include="packages.config" />
-    <Content Include="Views\Aparelhos\Index.cshtml" />
+    <Content Include="Views\Aparelhos\Lista.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Aparelhos\Create.cshtml" />
     <Content Include="Views\Aparelhos\Edit.cshtml" />
@@ -182,6 +183,8 @@
     <Content Include="Views\Imeis\Details.cshtml" />
     <Content Include="Views\Filiais\Index.cshtml" />
     <Content Include="Views\Filiais\Create.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Aparelhos\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

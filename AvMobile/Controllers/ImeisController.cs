@@ -17,6 +17,7 @@ namespace AvMobile.Controllers
 
         /*######################## INSERIR #############################*/
         public ActionResult Index() {
+            
             return View(context.Tbl_Imei.OrderBy(i => i.id));
         }
 

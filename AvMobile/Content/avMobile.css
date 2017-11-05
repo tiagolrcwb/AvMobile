@@ -1,0 +1,33 @@
+﻿body {
+    background-color: #34495e;
+    color: #fff;
+}
+h1, h2, h3, h4, h5 {
+    
+}
+.titulo{
+    color:#fff;
+}
+.menuPrincipal{
+    background-color: rgba(0,0,0,0.2);
+}
+.botoesMenuPrincipal > .btn-group {
+    background-color: rgba(255,255,255,0.2) !important;
+}
+    .botoesMenuPrincipal > .btn:hover {
+        color: #fff;
+        background-color: rgba(255,255,255,0.1)!important;
+    }
+    .botoesMenuPrincipal > .btn {
+        color: #fff;
+        background-color: rgba(255,255,255,0.2)!important;
+    }
+
+.uppercase {
+    text-transform: uppercase;
+}
+.table tr:nth-child(2n+1) {
+    background-color: rgba(255,255,255,0.1);
+}
+
+

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AvMobile.Models.Filial>
+﻿@model IEnumerable<AvMobile.Models.Aparelho>
 
 @{
     Layout = "../Shared/_Layout.cshtml";
@@ -9,17 +9,19 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Lista de Filiais</title>
+    <title>Index</title>
 </head>
 <body>
-    
+    <p>
+        <h3>Aparelhos Cadastrados no Sistema:</h3>
+    </p>
     <table class="table">
-        <tr>
+        <tr class="uppercase">
             <th>
-                @Html.DisplayNameFor(model => model.cidade.nome)
+                @Html.DisplayNameFor(model => model.modelo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.nome)
+                @Html.DisplayNameFor(model => model.valor)
             </th>
             <th></th>
         </tr>
@@ -27,15 +29,15 @@
     @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.cidade.nome)
+                @Html.DisplayFor(modelItem => item.modelo)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.nome)
+                R$ @Html.DisplayFor(modelItem => item.valor)
             </td>
             <td>
                 @Html.ActionLink("Editar", "Edit", new { id=item.id }) |
                 @Html.ActionLink("Detalhes", "Details", new { id=item.id }) |
-                @Html.ActionLink("Apagar", "Delete", new { id=item.id })
+                @Html.ActionLink("Excluir", "Delete", new { id=item.id })
             </td>
         </tr>
     }

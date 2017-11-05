@@ -1,7 +1,7 @@
 ﻿@model AvMobile.Models.Aparelho
 
 @{
-    Layout = null;
+    Layout = "../Shared/_Layout.cshtml";
 }
 
 <!DOCTYPE html>
@@ -9,7 +9,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Create</title>
+    <title>Cadastro de Aparelhos</title>
 </head>
 <body>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
@@ -21,7 +21,7 @@
     {
         @Html.AntiForgeryToken()
         
-        <div class="form-horizontal">
+        <div class="form-horizontal uppercase">
             <h4>Aparelho</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -43,14 +43,14 @@
     
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
+                    <input type="submit" value="Cadastrar" class="btn btn-default" />
                 </div>
             </div>
         </div>
     }
     
     <div>
-        @Html.ActionLink("Back to List", "Index")
+        @Html.ActionLink("Voltar", "Index")
     </div>
 </body>
 </html>
