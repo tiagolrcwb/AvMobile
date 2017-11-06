@@ -10,9 +10,10 @@ namespace AvMobile.Models
         public int id { get; set; }
         public string nome { get; set; }
 
-        public int cidadeId { get; set; }
+        public int? cidadeId { get; set; }
+
         public Cidade cidade { get; set; }
-        //public virtual ICollection<Cidade> cidades { get; set; }
+        
 
     }
 }

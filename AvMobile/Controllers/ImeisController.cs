@@ -15,10 +15,10 @@ namespace AvMobile.Controllers
         private EFContext context = new EFContext();
 
 
-        /*######################## INSERIR #############################*/
+        /*######################## INDEX #############################*/
         public ActionResult Index() {
-            
-            return View(context.Tbl_Imei.OrderBy(i => i.id));
+            var imei = context.Tbl_Imei.Include(i => i.aparelho).Include(a => a.aparelho).OrderBy(n => n.id);
+            return View(imei);
         }
 
 
@@ -51,7 +51,7 @@ namespace AvMobile.Controllers
             if (imei == null) {
                 return HttpNotFound();
             }
-            ViewBag.aparelhoId = new SelectList(context.Tbl_Aparelho.OrderBy(a => a.modelo), "id", "modelo", imei.id);
+            ViewBag.aparelhoId = new SelectList(context.Tbl_Aparelho.OrderBy(a => a.modelo), "id", "modelo", imei.aparelhoId);
             return View(imei);
         }
         [HttpPost]

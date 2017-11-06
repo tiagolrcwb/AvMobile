@@ -11,7 +11,7 @@ namespace AvMobile.Models
         public long num_imei { get; set; }
 
         public int? aparelhoId { get; set; }
-
+     
         public Aparelho aparelho { get; set; }
     }
 }

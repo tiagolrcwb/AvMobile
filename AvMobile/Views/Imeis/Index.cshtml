@@ -13,12 +13,12 @@
 </head>
 <body>
     <p>
-        @Html.ActionLink("Cadastrar Imei", "Create")
+        @Html.ActionLink("Cadastrar Novo IMEI", "Create")
     </p>
     <table class="table">
         <tr>
             <th>
-                Modelo
+                Modelo do Aparelho
             </th>
             <th>
                 Numero IMEI
@@ -35,9 +35,9 @@
                 @Html.DisplayFor(modelItem => item.num_imei)
             </td>
             <td>
-                @Html.ActionLink("Editar", "Edit", new { id=item.id }) |
-                @Html.ActionLink("Detalhar", "Details", new { id=item.id }) |
-                @Html.ActionLink("Apagar", "Delete", new { id=item.id })
+                @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+                @Html.ActionLink("Details", "Details", new { id=item.id }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.id })
             </td>
         </tr>
     }

@@ -18,7 +18,7 @@ namespace AvMobile.Contexts
         public DbSet<Imei> Tbl_Imei { get; set; }
         public DbSet<Usuario> Tbl_Usuario { get; set; }
         public DbSet<Filial> Tbl_Filial { get; set; }
-        public DbSet<Cidade> TblCidade { get; set; }
+        public DbSet<Cidade> Tbl_Cidade { get; set; }
         public DbSet<Estado> Tbl_Estado { get; set; }
     }
 }

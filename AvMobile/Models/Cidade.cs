@@ -12,6 +12,7 @@ namespace AvMobile.Models
         public string nome { get; set; }
         public int estadoId { get; set; }
         public Estado estado { get; set; }
-       // public virtual ICollection<Estado> estados { get; set; }
+
+        //public virtual ICollection<Filial> filiais { get; set; }
     }
 }

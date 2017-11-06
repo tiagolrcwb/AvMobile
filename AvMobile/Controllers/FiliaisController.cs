@@ -2,7 +2,9 @@
 using AvMobile.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -11,15 +13,18 @@ namespace AvMobile.Controllers
     public class FiliaisController : Controller
     {
         private EFContext context = new EFContext();
-        // GET: Filiais
-        public ActionResult Index()
-        {
-            return View(context.Tbl_Filial.OrderBy(f => f.nome));
+
+
+        /*######################## INDEX #############################*/
+        public ActionResult Index(){
+
+            var filiais = context.Tbl_Filial.Include(f => f.cidade).Include(c => c.cidade);
+            return View(filiais);
         }
 
         public ActionResult Create()
         {
-            ViewBag.cidadeId = new SelectList(context.TblCidade.OrderBy(c => c.nome), "id", "nome");
+            ViewBag.cidadeId = new SelectList(context.Tbl_Cidade.OrderBy(c => c.nome), "id", "nome");
             return View();
         }
         [HttpPost]
