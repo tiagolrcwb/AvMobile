@@ -20,5 +20,6 @@ namespace AvMobile.Contexts
         public DbSet<Filial> Tbl_Filial { get; set; }
         public DbSet<Cidade> Tbl_Cidade { get; set; }
         public DbSet<Estado> Tbl_Estado { get; set; }
+        public DbSet<Avaliacao> Tbl_Avaliacao { get; set; }
     }
 }

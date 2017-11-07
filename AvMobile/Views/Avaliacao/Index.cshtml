@@ -1,0 +1,89 @@
+﻿@model IEnumerable<AvMobile.Models.Avaliacao>
+
+@{
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.filial.nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.imei.num_imei)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.usuario.login)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.aceite)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.p1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.p2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.p3)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.p4)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.p5)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.filial.nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.imei.num_imei)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.usuario.login)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.aceite)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.p1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.p2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.p3)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.p4)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.p5)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+                @Html.ActionLink("Details", "Details", new { id=item.id }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

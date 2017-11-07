@@ -11,5 +11,7 @@ namespace AvMobile.Models
         public string login { get; set; }
         public string senha { get; set; }
         public int grupo { get; set; }
+        public int? filialId { get; set; }
+        public Filial filial { get; set; }
     }
 }
