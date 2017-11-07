@@ -25,50 +25,135 @@
             <h4>Avaliacao</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.aceite, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.aceite, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.aceite, "", new { @class = "text-danger" })
-                </div>
-            </div>
+           
     
             <div class="form-group">
-                @Html.LabelFor(model => model.p1, htmlAttributes: new { @class = "control-label col-md-2" })
+               
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.p1, new { htmlAttributes = new { @class = "form-control" } })
+                    <label class="control-label col-md-2" for="p1">Condições da Tela</label>
+                    <div class="btn-group" data-toggle="buttons">
+                        
+                        <label class="btn btn-primary active">
+                            Quebrada
+                            @Html.RadioButtonFor(model => model.p1, "1")
+                            
+                        </label>
+                        <label class="btn btn-primary">
+                            Trincada
+                            @Html.RadioButtonFor(model => model.p1, "2")
+                        </label>
+                        <label class="btn btn-primary">
+                            Riscada
+                            @Html.RadioButtonFor(model => model.p1, "3")
+                        </label>
+                        <label class="btn btn-primary">
+                            Sem Riscos
+                            @Html.RadioButtonFor(model => model.p1, "3")
+                        </label>
+                    </div>
+                   
                     @Html.ValidationMessageFor(model => model.p1, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
             <div class="form-group">
-                @Html.LabelFor(model => model.p2, htmlAttributes: new { @class = "control-label col-md-2" })
+
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.p2, new { htmlAttributes = new { @class = "form-control" } })
+                    <label class="control-label col-md-2" for="p2">Condições da Carcaça</label>
+                    <div class="btn-group" data-toggle="buttons">
+
+                        <label class="btn btn-primary active">
+                            Quebrada
+                            @Html.RadioButtonFor(model => model.p2, "1")
+
+                        </label>
+                        <label class="btn btn-primary">
+                            Trincada
+                            @Html.RadioButtonFor(model => model.p2, "2")
+                        </label>
+                        <label class="btn btn-primary">
+                            Riscada
+                            @Html.RadioButtonFor(model => model.p2, "3")
+                        </label>
+                        <label class="btn btn-primary">
+                            Sem Riscos
+                            @Html.RadioButtonFor(model => model.p2, "3")
+                        </label>
+                    </div>
+
                     @Html.ValidationMessageFor(model => model.p2, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
             <div class="form-group">
-                @Html.LabelFor(model => model.p3, htmlAttributes: new { @class = "control-label col-md-2" })
+
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.p3, new { htmlAttributes = new { @class = "form-control" } })
+                    <label class="control-label col-md-2" for="p3">Condições da Bateria</label>
+                    <div class="btn-group" data-toggle="buttons">
+
+                        <label class="btn btn-primary active">
+                            Duração 12h
+                            @Html.RadioButtonFor(model => model.p3, "1")
+
+                        </label>
+                        <label class="btn btn-primary">
+                            Duração 8h
+                            @Html.RadioButtonFor(model => model.p3, "2")
+                        </label>
+                        <label class="btn btn-primary">
+                            Duração 4h
+                            @Html.RadioButtonFor(model => model.p3, "3")
+                        </label>
+                        <label class="btn btn-primary">
+                            Danificada
+                            @Html.RadioButtonFor(model => model.p3, "3")
+                        </label>
+                    </div>
+
                     @Html.ValidationMessageFor(model => model.p3, "", new { @class = "text-danger" })
                 </div>
             </div>
     
+            
+    
             <div class="form-group">
-                @Html.LabelFor(model => model.p4, htmlAttributes: new { @class = "control-label col-md-2" })
+
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.p4, new { htmlAttributes = new { @class = "form-control" } })
+                    <label class="control-label col-md-2" for="p4">Condições dos Botoes</label>
+                    <div class="btn-group" data-toggle="buttons">
+
+                        <label class="btn btn-primary active">
+                            Quebrados
+                            @Html.RadioButtonFor(model => model.p4, "1")
+
+                        </label>
+                        <label class="btn btn-primary">
+                            Integros
+                            @Html.RadioButtonFor(model => model.p4, "2")
+                        </label>
+                       
+                    </div>
+
                     @Html.ValidationMessageFor(model => model.p4, "", new { @class = "text-danger" })
                 </div>
             </div>
     
             <div class="form-group">
-                @Html.LabelFor(model => model.p5, htmlAttributes: new { @class = "control-label col-md-2" })
+
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.p5, new { htmlAttributes = new { @class = "form-control" } })
+                    <label class="control-label col-md-2" for="p5">Condições do Carregador</label>
+                    <div class="btn-group" data-toggle="buttons">
+
+                        <label class="btn btn-primary active">
+                            Funcionando
+                            @Html.RadioButtonFor(model => model.p5, "1")
+
+                        </label>
+                        <label class="btn btn-primary">
+                            Defeito
+                            @Html.RadioButtonFor(model => model.p5, "2")
+                        </label>
+                       
+                    </div>
+
                     @Html.ValidationMessageFor(model => model.p5, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -79,7 +164,7 @@
                     @Html.ValidationMessageFor(model => model.imeiId, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+            @Html.HiddenFor(model => model.aceite, new { Value = 0 })
             @Html.HiddenFor(model => model.usuarioId, new { Value = ViewBag.UsuarioId })
             @Html.HiddenFor(model => model.filialId, new { Value = ViewBag.FilialId })
                   
