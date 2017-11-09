@@ -2,6 +2,7 @@
     background-color: #34495e;
     color: #fff;
 }
+
 h1, h2, h3, h4, h5 {
     
 }
@@ -11,9 +12,13 @@ h1, h2, h3, h4, h5 {
 .menuPrincipal{
     background-color: rgba(0,0,0,0.2);
 }
-.botoesMenuPrincipal > .btn-group {
-    background-color: rgba(255,255,255,0.2) !important;
-}
+    button {
+        background-color: rgba(255,255,255,0.2) !important;
+        color: #fff;
+    }button:hover {
+            color: #fff !important;
+            background-color: rgba(255,255,255,0.1) !important;
+     }
     .botoesMenuPrincipal > .btn:hover {
         color: #fff;
         background-color: rgba(255,255,255,0.1)!important;
@@ -28,6 +33,15 @@ h1, h2, h3, h4, h5 {
 }
 .table tr:nth-child(2n+1) {
     background-color: rgba(255,255,255,0.1);
+}
+
+#rodape {
+    background-color: rgba(0,0,0,0.2) !important;
+}
+.valorAv, .valorOriginal {
+    line-height: 250%;
+    text-align:left!important;
+    margin-left:-20px;
 }
 
 

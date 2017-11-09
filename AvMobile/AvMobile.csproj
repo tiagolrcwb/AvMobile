@@ -156,6 +156,7 @@
     <Compile Include="Controllers\AvaliacaoController.cs" />
     <Compile Include="Controllers\FiliaisController.cs" />
     <Compile Include="Controllers\ImeisController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -166,6 +167,7 @@
     <Compile Include="Models\Estado.cs" />
     <Compile Include="Models\Filial.cs" />
     <Compile Include="Models\Imei.cs" />
+    <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -191,6 +193,7 @@
     <Content Include="Views\Usuarios\Create.cshtml" />
     <Content Include="Views\Avaliacao\Index.cshtml" />
     <Content Include="Views\Avaliacao\Create.cshtml" />
+    <Content Include="Views\Login\index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

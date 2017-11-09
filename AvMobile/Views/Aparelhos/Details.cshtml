@@ -28,17 +28,17 @@
             @Html.HiddenFor(model => model.id)
     
             <div class="form-group">
-                @Html.LabelFor(model => model.modelo, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                <label class="control-label col-md-4" for="modelo">Modelo do Aparelho:</label>
+                <div class="col-md-4">
                     @Html.DisplayFor(model => model.modelo, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.modelo, "", new { @class = "text-danger" })
                 </div>
             </div>
     
             <div class="form-group">
-                @Html.LabelFor(model => model.valor, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DisplayFor(model => model.valor, new { htmlAttributes = new { @class = "form-control" } })
+                <label class="control-label col-md-4" for="modelo">Valor máximo de Compra:</label>
+                <div class="col-md-4">
+                    R$ @Html.DisplayFor(model => model.valor, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.valor, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -46,7 +46,7 @@
     }
     
     <div>
-        @Html.ActionLink("Back to List", "Index")
+        @Html.ActionLink("Voltar", "Index")
     </div>
 </body>
 </html>

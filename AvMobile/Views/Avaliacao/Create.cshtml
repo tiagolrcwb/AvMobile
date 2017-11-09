@@ -9,74 +9,84 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Create</title>
+    <title>Cadastrar nova Avaliação</title>
 </head>
 <body>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-    
-    
-    @using (Html.BeginForm()) 
+    <script src=”~/Scripts/MicrosoftAjax.js” type=”text/javascript”></script>
+    <script src=”~/Scripts/MicrosoftMvcAjax.js” type=”text/javascript”></script>
+
+
+    @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-        
+
         <div class="form-horizontal">
-            <h4>Avaliacao</h4>
+            <h4>Cadastro de Avaliações</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-           
-    
             <div class="form-group">
-               
-                <div class="col-md-10">
-                    <label class="control-label col-md-2" for="p1">Condições da Tela</label>
+                <div class="col-md-12">
+                    <div class="control-label col-md-3">IMEI:</div>
+                    <div class="col-md-4">
+                        @Html.DropDownList("imeiId", null, htmlAttributes: new { @class = "form-control selectListImei" })
+                        @Html.ValidationMessageFor(model => model.imeiId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+
+                <div class="col-md-8">
+                    <label class="control-label col-md-4" for="p1">Condições da Tela</label>
                     <div class="btn-group" data-toggle="buttons">
-                        
-                        <label class="btn btn-primary active">
-                            Quebrada
-                            @Html.RadioButtonFor(model => model.p1, "1")
-                            
-                        </label>
+
                         <label class="btn btn-primary">
-                            Trincada
-                            @Html.RadioButtonFor(model => model.p1, "2")
+                            Sem Riscos
+                            @Html.RadioButtonFor(model => model.p1, "1", new { @class = "p1" })
+
                         </label>
                         <label class="btn btn-primary">
                             Riscada
-                            @Html.RadioButtonFor(model => model.p1, "3")
+                            @Html.RadioButtonFor(model => model.p1, "2", new { @class = "p1" })
                         </label>
                         <label class="btn btn-primary">
-                            Sem Riscos
-                            @Html.RadioButtonFor(model => model.p1, "3")
+                            Trincada
+                            @Html.RadioButtonFor(model => model.p1, "3", new { @class = "p1" })
+                        </label>
+                        <label class="btn btn-primary">
+                            Quebrada
+                            @Html.RadioButtonFor(model => model.p1, "4", new { @class = "p1" })
                         </label>
                     </div>
-                   
+
                     @Html.ValidationMessageFor(model => model.p1, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group">
 
-                <div class="col-md-10">
-                    <label class="control-label col-md-2" for="p2">Condições da Carcaça</label>
+                <div class="col-md-8">
+                    <label class="control-label col-md-4" for="p2">Condições da Carcaça</label>
                     <div class="btn-group" data-toggle="buttons">
 
-                        <label class="btn btn-primary active">
-                            Quebrada
-                            @Html.RadioButtonFor(model => model.p2, "1")
-
-                        </label>
                         <label class="btn btn-primary">
-                            Trincada
-                            @Html.RadioButtonFor(model => model.p2, "2")
+                            Sem Riscos
+                            @Html.RadioButtonFor(model => model.p2, "1", new { @class = "p2" })
+
                         </label>
                         <label class="btn btn-primary">
                             Riscada
-                            @Html.RadioButtonFor(model => model.p2, "3")
+                            @Html.RadioButtonFor(model => model.p2, "2", new { @class = "p2" })
                         </label>
                         <label class="btn btn-primary">
-                            Sem Riscos
-                            @Html.RadioButtonFor(model => model.p2, "3")
+                            Trincada
+                            @Html.RadioButtonFor(model => model.p2, "3", new { @class = "p2" })
+                        </label>
+                        <label class="btn btn-primary">
+                            Quebrada
+                            @Html.RadioButtonFor(model => model.p2, "4", new { @class = "p2" })
                         </label>
                     </div>
 
@@ -85,100 +95,202 @@
             </div>
             <div class="form-group">
 
-                <div class="col-md-10">
-                    <label class="control-label col-md-2" for="p3">Condições da Bateria</label>
+                <div class="col-md-8">
+                    <label class="control-label col-md-4" for="p3">Condições da Bateria</label>
                     <div class="btn-group" data-toggle="buttons">
 
-                        <label class="btn btn-primary active">
-                            Duração 12h
-                            @Html.RadioButtonFor(model => model.p3, "1")
-
+                        <label class="btn btn-primary">
+                            Nova
+                            @Html.RadioButtonFor(model => model.p3, "1", new { @class = "p3" })
                         </label>
                         <label class="btn btn-primary">
-                            Duração 8h
-                            @Html.RadioButtonFor(model => model.p3, "2")
-                        </label>
-                        <label class="btn btn-primary">
-                            Duração 4h
-                            @Html.RadioButtonFor(model => model.p3, "3")
+                            Duração Baixa
+                            @Html.RadioButtonFor(model => model.p3, "2", new { @class = "p3" })
                         </label>
                         <label class="btn btn-primary">
                             Danificada
-                            @Html.RadioButtonFor(model => model.p3, "3")
+                            @Html.RadioButtonFor(model => model.p3, "3", new { @class = "p3" })
                         </label>
+                        
                     </div>
 
                     @Html.ValidationMessageFor(model => model.p3, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
-            
-    
+
+
+
             <div class="form-group">
 
-                <div class="col-md-10">
-                    <label class="control-label col-md-2" for="p4">Condições dos Botoes</label>
+                <div class="col-md-8">
+                    <label class="control-label col-md-4" for="p4">Condições dos Botoes</label>
                     <div class="btn-group" data-toggle="buttons">
 
-                        <label class="btn btn-primary active">
-                            Quebrados
-                            @Html.RadioButtonFor(model => model.p4, "1")
+                        <label class="btn btn-primary">
+                            Integros
+                            @Html.RadioButtonFor(model => model.p4, "1", new { @class = "p4" })
 
                         </label>
                         <label class="btn btn-primary">
-                            Integros
-                            @Html.RadioButtonFor(model => model.p4, "2")
+                            Quebrados
+                            @Html.RadioButtonFor(model => model.p4, "2", new { @class = "p4" })
                         </label>
-                       
+
                     </div>
 
                     @Html.ValidationMessageFor(model => model.p4, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+
             <div class="form-group">
 
-                <div class="col-md-10">
-                    <label class="control-label col-md-2" for="p5">Condições do Carregador</label>
+                <div class="col-md-8">
+                    <label class="control-label col-md-4" for="p5">Condições do Carregador</label>
                     <div class="btn-group" data-toggle="buttons">
 
-                        <label class="btn btn-primary active">
+                        <label class="btn btn-primary">
                             Funcionando
-                            @Html.RadioButtonFor(model => model.p5, "1")
-
+                            @Html.RadioButtonFor(model => model.p5, "1", new { @class = "p5" })
                         </label>
                         <label class="btn btn-primary">
                             Defeito
-                            @Html.RadioButtonFor(model => model.p5, "2")
+                            @Html.RadioButtonFor(model => model.p5, "2", new { @class = "p5" })
                         </label>
-                       
+
                     </div>
 
                     @Html.ValidationMessageFor(model => model.p5, "", new { @class = "text-danger" })
                 </div>
             </div>
+            
             <div class="form-group">
-                <div class="control-label col-md-2">IMEI:</div>
-                <div class="col-md-10">
-                    @Html.DropDownList("imeiId", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.imeiId, "", new { @class = "text-danger" })
+                <div class="col-md-12">
+                    <div class="control-label col-md-3">Observação:</div>
+                    <div class="col-md-4">
+
+                        @Html.TextAreaFor(model => model.obs, new { @class = "form-control" })
+
+                        @Html.ValidationMessageFor(model => model.obs, "", new { @class = "text-danger" })
+                    </div>
                 </div>
             </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <div class="control-label col-md-3">Valor do Aparelho: R$</div>
+                    <div class="col-md-1">
+
+                        <span class="control-label valorOriginal"></span>
+
+    
+                    </div>
+                    <div class="control-label col-md-2">Desconto: R$</div>
+                    <div class="col-md-1">
+
+                        <span class="control-label valorAv"></span>
+
+
+                    </div>
+                </div>
+            </div>
+            @Html.HiddenFor(model => model.valorAv, new { Value = 0 })
             @Html.HiddenFor(model => model.aceite, new { Value = 0 })
             @Html.HiddenFor(model => model.usuarioId, new { Value = ViewBag.UsuarioId })
             @Html.HiddenFor(model => model.filialId, new { Value = ViewBag.FilialId })
-                  
-    
+
+
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
+                    <input type="submit" value="Cadastrar Avaliação" class="btn btn-default" />
                 </div>
             </div>
         </div>
     }
-    
+
     <div>
-        @Html.ActionLink("Back to List", "Index")
+        @Html.ActionLink("Voltar", "Index")
     </div>
 </body>
+<script>
+    $(document).ready(function () {
+        var id = 0
+        var valorOriginal = 0;
+        var p1 = 0;
+        var p2 = 0
+        var p3 = 0
+        var p4 = 0
+        var p5 = 0
+
+            $('.selectListImei').change(function () {
+                id = $(this).find(":selected").val();
+               
+                $.getJSON('ObterAparelho', { id: id }, function (data) {
+                    valorOriginal = data;
+                    $('.valorOriginal').html(data);
+                });
+            });
+            $('.p1').change(function () {
+                var op = $(this).val();
+                var p = 'p1';
+                console.log(op+" - "+p+" - "+id);
+                $.getJSON('ValoresAparelho', { p: p, op: op, id: id }, function (data) {
+                    p1 = data;
+                    console.log(p1);
+                    $('.valorAv').html(somaPerguntas());
+                });
+            });
+            $('.p2').change(function () {
+                var op = $(this).val();
+                var p = 'p2';
+                console.log(op + " - " + p + " - " + id);
+                $.getJSON('ValoresAparelho', { p: p, op: op, id: id }, function (data) {
+                    p2 = data;
+                    console.log(p2);
+                    $('.valorAv').html(somaPerguntas());
+                });
+            });
+            $('.p3').change(function () {
+                var op = $(this).val();
+                var p = 'p3';
+                console.log(op + " - " + p + " - " + id);
+                $.getJSON('ValoresAparelho', { p: p, op: op, id: id }, function (data) {
+                    p3 = data;
+                    console.log(p3);
+                    $('.valorAv').html(somaPerguntas());
+                });
+            });
+            $('.p4').change(function () {
+                var op = $(this).val();
+                var p = 'p4';
+                console.log(op + " - " + p + " - " + id);
+                $.getJSON('ValoresAparelho', { p: p, op: op, id: id }, function (data) {
+                    p4 = data;
+                    console.log(p4);
+                    $('.valorAv').html(somaPerguntas());
+                });
+            });
+            $('.p5').change(function () {
+                var op = $(this).val();
+                var p = 'p5';
+                console.log(op + " - " + p + " - " + id);
+                $.getJSON('ValoresAparelho', { p: p, op: op, id: id }, function (data) {
+                    p5 = data;
+                    console.log(p5);
+                    $('.valorAv').html(somaPerguntas());
+                });
+            });
+            function somaPerguntas() {
+                soma = p1 + p2 + p3 + p4 + p5;
+               
+                if (soma > valorOriginal) {
+                    soma = valorOriginal;
+                }
+                $("#valorAv").val(valorOriginal-soma);
+                return soma;
+            }
+
+
+
+            
+    });
+</script>
 </html>

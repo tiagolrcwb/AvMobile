@@ -15,6 +15,7 @@ namespace AvMobile.Models
         public int p4 { get; set; }
         public int p5 { get; set; }
         public float valorAv { get; set; }
+        public string obs { get; set; }
 
         public int usuarioId { get; set; }
         public int imeiId { get; set; }

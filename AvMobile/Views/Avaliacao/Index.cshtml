@@ -9,40 +9,37 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
+    <title>Avaliações</title>
 </head>
 <body>
     <p>
-        @Html.ActionLink("Create New", "Create")
+        @Html.ActionLink("Cadastrar Nova Avaliação", "Create")
     </p>
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.filial.nome)
+               <small>Filial da Avaliação</small>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.imei.num_imei)
+                <small>Codigo IMEI</small>
+                
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.usuario.login)
+                <small>Usuario da Avaliação</small>
+               
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.aceite)
+                <small>Aceite do Cliente</small>
+                
+            </th>
+            
+            <th>
+                <small>Valor da Avaliação</small>
+                
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.p1)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.p2)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.p3)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.p4)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.p5)
+                <small>Observação</small>
+                
             </th>
             <th></th>
         </tr>
@@ -61,25 +58,17 @@
             <td>
                 @Html.DisplayFor(modelItem => item.aceite)
             </td>
+           
             <td>
-                @Html.DisplayFor(modelItem => item.p1)
+                R$@Html.DisplayFor(modelItem => item.valorAv)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.p2)
+                @Html.DisplayFor(modelItem => item.obs)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.p3)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.p4)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.p5)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-                @Html.ActionLink("Details", "Details", new { id=item.id }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.id })
+                @Html.ActionLink("Aceite do Cliente", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Efetuar a Compra", "Details", new { id = item.id }) |
+                @Html.ActionLink("Inativar a Avaliação", "Delete", new { id = item.id })
             </td>
         </tr>
     }
