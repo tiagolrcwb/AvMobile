@@ -15,6 +15,7 @@ h1, h2, h3, h4, h5 {
     button {
         background-color: rgba(255,255,255,0.2) !important;
         color: #fff;
+        height:90% !important;
     }button:hover {
             color: #fff !important;
             background-color: rgba(255,255,255,0.1) !important;
@@ -38,10 +39,19 @@ h1, h2, h3, h4, h5 {
 #rodape {
     background-color: rgba(0,0,0,0.2) !important;
 }
-.valorAv, .valorOriginal {
+.valorAv, .valorOriginal, .valorFinal {
     line-height: 250%;
-    text-align:left!important;
-    margin-left:-20px;
+    text-align: left !important;
+    margin-left: -20px;
+}
+.valorFinalDiv, .modeloDiv {
+    font-size: 18px;
+    color: yellow;
+    text-align:center
+}
+
+.glyphicon{
+    color:#fff;
 }
 
 

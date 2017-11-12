@@ -1,0 +1,41 @@
+﻿@model AvMobile.Models.Filial
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Voce tem certeza que deseja deletar esta Filial?</h3>
+<div>
+    <h4>Filial</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.cidade.nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cidade.nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nome)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Voltar", "Index")
+        </div>
+    }
+</div>

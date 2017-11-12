@@ -41,5 +41,39 @@ namespace AvMobile.Controllers
                 return View(filial);
             }
         }
+
+        /*######################## EDITAR #############################*/
+        public ActionResult Edit(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Filial filial = context.Tbl_Filial.Find(id);
+            if (filial == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.cidadeId = new SelectList(context.Tbl_Cidade.OrderBy(c => c.nome), "id", "nome", filial.cidadeId);
+            return View(filial);
+        }
+        [HttpPost]
+        public ActionResult Edit(Filial filial)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    context.Entry(filial).State = EntityState.Modified; context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View(filial);
+            }
+            catch
+            {
+                return View(filial);
+            }
+        }
+
     }
 }

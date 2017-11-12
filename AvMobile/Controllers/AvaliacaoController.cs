@@ -8,11 +8,13 @@ using System.Web.Mvc;
 using AvMobile.Models;
 using System.Net;
 using System.Data.Entity;
+using System.Web.UI.WebControls;
 
 namespace AvMobile.Controllers
 {
     public class AvaliacaoController : Controller
     {
+        public enum AceiteEnum { NÃO, SIM};
         //Avaliação da Tela
         private static int p1_op1 = 0;  //Sem riscos
         private static int p1_op2 = 10; //Riscada
@@ -52,6 +54,7 @@ namespace AvMobile.Controllers
             ViewBag.UsuarioId = 1;
             ViewBag.FilialId = 1;
             ViewBag.imeiId = new SelectList(context.Tbl_Imei.OrderBy(i => i.num_imei), "id", "num_imei");
+
             return View();
         }
         [HttpPost]
@@ -65,10 +68,10 @@ namespace AvMobile.Controllers
         public JsonResult ObterAparelho(int id)
         {
             Aparelho aparelho = context.Tbl_Aparelho.Find(id);
-
-            return Json(aparelho.valor, JsonRequestBehavior.AllowGet);
+            return Json(aparelho, JsonRequestBehavior.AllowGet);
+            
         }
-        public JsonResult ValoresAparelho(string p, int op, int id)
+        public JsonResult RetornaDesconto(string p, int op, int id)
         {
             Aparelho aparelho = context.Tbl_Aparelho.Find(id);
 
@@ -156,6 +159,90 @@ namespace AvMobile.Controllers
             return Json(0, JsonRequestBehavior.AllowGet);
         }
 
+        /*######################## ACEITAS #############################*/
+        public ActionResult Aceitas()
+        {
+            var avaliacoes = context.Tbl_Avaliacao.Include(a => a.usuario).Include(f => f.filial).Include(i => i.imei).Where(a =>a.aceite==1);
+            return View(avaliacoes);
+        }
+
+
+        /*######################## ACEITE #############################*/
+        public ActionResult Aceite(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Avaliacao avaliacao = context.Tbl_Avaliacao.Find(id);
+            ViewBag.UsuarioId = 1;
+            ViewBag.FilialId = 1;
+            if (avaliacao == null)
+            {
+                return HttpNotFound();
+            }
+            return View(avaliacao);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Aceite(Avaliacao avaliacao)
+        {
+            if (ModelState.IsValid)
+            {
+                context.Entry(avaliacao).State = EntityState.Modified;
+                context.SaveChanges(); return RedirectToAction("Index");
+            }
+            return View(avaliacao);
+        }
+
+
+        /*######################## DETALHES #############################*/
+        public ActionResult Details(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            
+            Avaliacao avaliacao = context.Tbl_Avaliacao.Where(a => a.id == id).Include(f => f.filial).Include(i => i.imei).Include(u =>u.usuario).First();
+
+            Aparelho aparelho = context.Tbl_Aparelho.Find(avaliacao.imei.aparelhoId);
+            ViewBag.Aparelho = aparelho.modelo;
+            if (avaliacao == null)
+            {
+                return HttpNotFound();
+            }
+            return View(avaliacao);
+        }
+
+        /*######################## DELETE #############################*/
+        public ActionResult Delete(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Avaliacao avaliacao = context.Tbl_Avaliacao.Where(a => a.id == id).Include(f => f.filial).Include(i => i.imei).Include(u => u.usuario).First();
+
+            Aparelho aparelho = context.Tbl_Aparelho.Find(avaliacao.imei.aparelhoId);
+            ViewBag.Aparelho = aparelho.modelo;
+
+
+            if (avaliacao == null)
+            {
+                return HttpNotFound();
+            }
+            return View(avaliacao);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(long id)
+        {
+            Avaliacao avaliacao = context.Tbl_Avaliacao.Find(id);
+            context.Tbl_Avaliacao.Remove(avaliacao);
+            context.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
 
 
@@ -163,5 +250,6 @@ namespace AvMobile.Controllers
 
 
 
-}
+
+    }
 }

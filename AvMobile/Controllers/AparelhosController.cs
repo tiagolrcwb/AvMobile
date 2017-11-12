@@ -38,7 +38,7 @@ namespace AvMobile.Controllers
         public ActionResult Create(Aparelho aparelho){
             context.Tbl_Aparelho.Add(aparelho);
             context.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Lista");
         }
 
         /*######################## EDITAR #############################*/
@@ -59,7 +59,7 @@ namespace AvMobile.Controllers
             if (ModelState.IsValid)
             {
                 context.Entry(aparelho).State = EntityState.Modified;
-                context.SaveChanges(); return RedirectToAction("Index");
+                context.SaveChanges(); return RedirectToAction("Lista");
             }
             return View(aparelho);
         }
@@ -93,7 +93,7 @@ namespace AvMobile.Controllers
             Aparelho aparelho = context.Tbl_Aparelho.Find(id);
             context.Tbl_Aparelho.Remove(aparelho);
             context.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Lista");
         }
 
 

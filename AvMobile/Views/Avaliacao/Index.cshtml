@@ -66,9 +66,12 @@
                 @Html.DisplayFor(modelItem => item.obs)
             </td>
             <td>
-                @Html.ActionLink("Aceite do Cliente", "Edit", new { id = item.id }) |
-                @Html.ActionLink("Efetuar a Compra", "Details", new { id = item.id }) |
-                @Html.ActionLink("Inativar a Avaliação", "Delete", new { id = item.id })
+                <a href="@Url.Action("Aceite", "Avaliacao", new { id = item.id })"><span class='glyphicon glyphicon-thumbs-up' aria-hidden='true'></span></a>
+               <a href="@Url.Action("Details", "Avaliacao", new { id = item.id })"><span class='glyphicon glyphicon-zoom-in' aria-hidden='true'></span></a>
+                <!--<a href="@Url.Action("Aceite", "Avaliacao", new { id = item.id })"><span class='glyphicon glyphicon-zoom-in' aria-hidden='true'></span></a>-->
+                <a href="@Url.Action("Delete", "Avaliacao", new { id = item.id })"><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a>
+                
+                
             </td>
         </tr>
     }

@@ -36,6 +36,13 @@
                     </div>
                 </div>
             </div>
+            <div class="form-group">
+                <div class="col-md-12 modeloDiv">
+                    <div class="col-md-12">
+                        <span class="control-label modeloNome"></span>
+                    </div>
+                </div>
+            </div>
 
             <div class="form-group">
 
@@ -164,8 +171,8 @@
             </div>
             
             <div class="form-group">
-                <div class="col-md-12">
-                    <div class="control-label col-md-3">Observação:</div>
+                <div class="col-md-8">
+                    <div class="control-label col-md-4">Observação:</div>
                     <div class="col-md-4">
 
                         @Html.TextAreaFor(model => model.obs, new { @class = "form-control" })
@@ -192,6 +199,14 @@
                     </div>
                 </div>
             </div>
+            <div class="form-group">
+                <div class="col-md-12 valorFinalDiv">
+                    <div class="control-label col-md-3">Valor de Compra: R$</div>
+                    <div class="col-md-1">
+                        <span class="control-label valorFinal"></span>
+                    </div>
+                </div>
+            </div>
             @Html.HiddenFor(model => model.valorAv, new { Value = 0 })
             @Html.HiddenFor(model => model.aceite, new { Value = 0 })
             @Html.HiddenFor(model => model.usuarioId, new { Value = ViewBag.UsuarioId })
@@ -200,7 +215,7 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Cadastrar Avaliação" class="btn btn-default" />
+                    <input type="submit" value="Cadastrar Avaliação" disabled class="btn btn-default formSend" />
                 </div>
             </div>
         </div>
@@ -212,6 +227,8 @@
 </body>
 <script>
     $(document).ready(function () {
+
+        //atributos iniciais 
         var id = 0
         var valorOriginal = 0;
         var p1 = 0;
@@ -219,74 +236,99 @@
         var p3 = 0
         var p4 = 0
         var p5 = 0
+        //Adicionando um option no inicio do select
+        $(".selectListImei").prepend("<option value='0' selected='selected' id='primeiroItemSelect'>---- Selecione um Imei ----</option>");
 
-            $('.selectListImei').change(function () {
-                id = $(this).find(":selected").val();
-               
-                $.getJSON('ObterAparelho', { id: id }, function (data) {
-                    valorOriginal = data;
-                    $('.valorOriginal').html(data);
-                });
-            });
-            $('.p1').change(function () {
-                var op = $(this).val();
-                var p = 'p1';
-                console.log(op+" - "+p+" - "+id);
-                $.getJSON('ValoresAparelho', { p: p, op: op, id: id }, function (data) {
-                    p1 = data;
-                    console.log(p1);
-                    $('.valorAv').html(somaPerguntas());
-                });
-            });
-            $('.p2').change(function () {
-                var op = $(this).val();
-                var p = 'p2';
-                console.log(op + " - " + p + " - " + id);
-                $.getJSON('ValoresAparelho', { p: p, op: op, id: id }, function (data) {
-                    p2 = data;
-                    console.log(p2);
-                    $('.valorAv').html(somaPerguntas());
-                });
-            });
-            $('.p3').change(function () {
-                var op = $(this).val();
-                var p = 'p3';
-                console.log(op + " - " + p + " - " + id);
-                $.getJSON('ValoresAparelho', { p: p, op: op, id: id }, function (data) {
-                    p3 = data;
-                    console.log(p3);
-                    $('.valorAv').html(somaPerguntas());
-                });
-            });
-            $('.p4').change(function () {
-                var op = $(this).val();
-                var p = 'p4';
-                console.log(op + " - " + p + " - " + id);
-                $.getJSON('ValoresAparelho', { p: p, op: op, id: id }, function (data) {
-                    p4 = data;
-                    console.log(p4);
-                    $('.valorAv').html(somaPerguntas());
-                });
-            });
-            $('.p5').change(function () {
-                var op = $(this).val();
-                var p = 'p5';
-                console.log(op + " - " + p + " - " + id);
-                $.getJSON('ValoresAparelho', { p: p, op: op, id: id }, function (data) {
-                    p5 = data;
-                    console.log(p5);
-                    $('.valorAv').html(somaPerguntas());
-                });
-            });
-            function somaPerguntas() {
-                soma = p1 + p2 + p3 + p4 + p5;
-               
-                if (soma > valorOriginal) {
-                    soma = valorOriginal;
-                }
-                $("#valorAv").val(valorOriginal-soma);
-                return soma;
+       
+        //recuperando o objeto aparelho a cada mudança do select
+        $('.selectListImei').change(function () {
+            console.log(id = $(this).find(":selected").val());
+            if (id == 0) {
+                $(".formSend").attr("disabled", "disabled");
+            } else {
+                $(".formSend").removeAttr('disabled');
             }
+                 
+            $.getJSON('ObterAparelho', { id: id }, function (data) {
+                console.log(valorOriginal = data.valor);
+                console.log(modelo = data.modelo);
+                $('.valorOriginal').html(valorOriginal);
+                $('.modeloNome').html(modelo);
+            });
+        });
+
+        //recuperando o valor da pergunta de cada radio
+        $('.p1').change(function () {
+            var op = $(this).val();
+            var p = 'p1';
+            console.log(op + " - " + p + " - " + id);
+
+            $.getJSON('RetornaDesconto', { p: p, op: op, id: id }, function (data) {
+                p1 = data;
+                console.log(p1);
+                $('.valorAv').html(somaPerguntas());
+            });
+        });
+        //recuperando o valor da pergunta de cada radio
+        $('.p2').change(function () {
+            var op = $(this).val();
+            var p = 'p2';
+            console.log(op + " - " + p + " - " + id);
+
+            $.getJSON('RetornaDesconto', { p: p, op: op, id: id }, function (data) {
+                p2 = data;
+                console.log(p2);
+                $('.valorAv').html(somaPerguntas());
+            });
+        });
+        //recuperando o valor da pergunta de cada radio
+        $('.p3').change(function () {
+            var op = $(this).val();
+            var p = 'p3';
+            console.log(op + " - " + p + " - " + id);
+
+            $.getJSON('RetornaDesconto', { p: p, op: op, id: id }, function (data) {
+                p3 = data;
+                console.log(p3);
+                $('.valorAv').html(somaPerguntas());
+            });
+        });
+        //recuperando o valor da pergunta de cada radio
+        $('.p4').change(function () {
+            var op = $(this).val();
+            var p = 'p4';
+            console.log(op + " - " + p + " - " + id);
+
+            $.getJSON('RetornaDesconto', { p: p, op: op, id: id }, function (data) {
+                p4 = data;
+                console.log(p4);
+                $('.valorAv').html(somaPerguntas());
+            });
+        });
+        //recuperando o valor da pergunta de cada radio
+        $('.p5').change(function () {
+            var op = $(this).val();
+            var p = 'p5';
+            console.log(op + " - " + p + " - " + id);
+
+            $.getJSON('RetornaDesconto', { p: p, op: op, id: id }, function (data) {
+                p5 = data;
+                console.log(p5);
+                $('.valorAv').html(somaPerguntas());
+            });
+        });
+        //Função que retorna o a soma dos descontos e atualiza o valor a pagar dinamicamente
+        function somaPerguntas() {
+            soma = p1 + p2 + p3 + p4 + p5;
+               
+            if (soma > valorOriginal) {
+                soma = valorOriginal;
+            }
+
+            $("#valorAv").val(valorOriginal - soma);
+            $(".valorFinal").html(valorOriginal - soma);
+            return soma;
+        }
 
 
 

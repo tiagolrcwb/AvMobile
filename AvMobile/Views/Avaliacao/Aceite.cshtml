@@ -1,0 +1,72 @@
+﻿@model AvMobile.Models.Avaliacao
+
+@{
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Aceite</title>
+</head>
+<body>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    
+    
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        
+        <div class="form-horizontal">
+            <h4>Avaliação</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.id)
+            <h4>O Cliente Aceita a Proposta de R$@Model.valorAv?</h4>
+            <div class="form-group">
+
+                <div class="col-md-8">
+                    <label class="control-label col-md-4" for="p5">Opção do Cliente:</label>
+                    <div class="btn-group" data-toggle="buttons">
+
+                        <label class="btn btn-success">
+                            Aceitou a proposta
+                            @Html.RadioButtonFor(model => model.aceite, "1")
+                        </label>
+                        <label class="btn btn-danger">
+                            Recusou a proposta
+                            @Html.RadioButtonFor(model => model.aceite, "0")
+                        </label>
+
+                    </div>
+
+                    @Html.ValidationMessageFor(model => model.aceite, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            
+    
+              
+            @Html.HiddenFor(model => model.valorAv, new { Value = Model.valorAv })
+            @Html.HiddenFor(model => model.imeiId, new { Value = Model.imeiId })
+            @Html.HiddenFor(model => model.usuarioId, new { Value = ViewBag.UsuarioId })
+            @Html.HiddenFor(model => model.filialId, new { Value = ViewBag.FilialId })
+            @Html.HiddenFor(model => model.obs, new { Value = Model.obs})
+    
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Atualizar" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+    
+    <div>
+        @Html.ActionLink("Voltar", "Index")
+    </div>
+</body>
+</html>

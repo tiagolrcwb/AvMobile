@@ -1,0 +1,80 @@
+﻿@model AvMobile.Models.Avaliacao
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Você tem certeza que deseja APAGAR essa avaliação?</h3>
+<div>
+    <h4>Avaliacao do IMEI: @Model.imei.num_imei Aparelho: @ViewBag.Aparelho.</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Filial:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.filial.nome)
+        </dd>
+
+        <dt>
+            Numero IMEI:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.imei.num_imei)
+        </dd>
+
+        <dt>
+            Usuario Cadastro:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.usuario.login)
+        </dd>
+
+        <dt>
+            Aceite do Cliente:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.aceite)
+        </dd>
+
+        <dt>
+            Valor da Proposta:
+        </dt>
+
+        <dd>
+            R$@Html.DisplayFor(model => model.valorAv)
+        </dd>
+
+        <dt>
+            Observação:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.obs)
+        </dd>
+
+    </dl>
+    </div>
+    <div>
+
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+               
+                <input type="submit" value="Apagar" class="btn btn-default" /> 
+                <p><br /><br /><br />@Html.ActionLink("Voltar", "Index")</p>
+                
+            </div>
+            
+        }
+</div>
