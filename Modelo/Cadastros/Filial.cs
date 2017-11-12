@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Modelo.Tabelas;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace AvMobile.Models
+namespace Modelo.Cadastros
 {
     public class Filial
     {

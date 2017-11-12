@@ -163,14 +163,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Aparelho.cs" />
-    <Compile Include="Models\Avaliacao.cs" />
-    <Compile Include="Models\Cidade.cs" />
-    <Compile Include="Models\Estado.cs" />
-    <Compile Include="Models\Filial.cs" />
-    <Compile Include="Models\Imei.cs" />
-    <Compile Include="Models\Login.cs" />
-    <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -211,6 +203,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Modelo\Modelo.csproj">
+      <Project>{3cf588aa-d271-4e0b-a4fa-142b257acd78}</Project>
+      <Name>Modelo</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

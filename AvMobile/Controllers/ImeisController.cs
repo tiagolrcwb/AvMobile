@@ -1,5 +1,5 @@
 ﻿using AvMobile.Contexts;
-using AvMobile.Models;
+using Modelo.Cadastros;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;

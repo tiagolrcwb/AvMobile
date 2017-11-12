@@ -5,7 +5,8 @@ using System.Linq;
 using Oracle.ManagedDataAccess;
 using System.Web;
 using System.Web.Mvc;
-using AvMobile.Models;
+using Modelo.Cadastros;
+using Modelo.Tabelas;
 using System.Net;
 using System.Data.Entity;
 

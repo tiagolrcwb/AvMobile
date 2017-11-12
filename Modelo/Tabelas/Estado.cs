@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+//using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace AvMobile.Models
+namespace Modelo.Tabelas
 {
     public class Estado
     {
