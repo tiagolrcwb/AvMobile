@@ -64,8 +64,7 @@ namespace AvMobile.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Usuario usuario)
         {
-            GravarUsuario(usuario);
-            return RedirectToAction("Index");
+            return GravarUsuario(usuario);
         }
     }
 }

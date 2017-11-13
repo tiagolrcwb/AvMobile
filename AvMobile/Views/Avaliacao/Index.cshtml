@@ -18,64 +18,62 @@
     <table class="table">
         <tr>
             <th>
-               <small>Filial da Avaliação</small>
+                <small>Filial da Avaliação</small>
             </th>
             <th>
                 <small>Codigo IMEI</small>
-                
+
             </th>
             <th>
                 <small>Usuario da Avaliação</small>
-               
+
             </th>
             <th>
                 <small>Aceite do Cliente</small>
-                
+
             </th>
-            
+
             <th>
                 <small>Valor da Avaliação</small>
-                
+
             </th>
             <th>
                 <small>Observação</small>
-                
+
             </th>
             <th></th>
         </tr>
-    
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.filial.nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.imei.num_imei)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.usuario.login)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.aceite)
-            </td>
-           
-            <td>
-                R$@Html.DisplayFor(modelItem => item.valorAv)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.obs)
-            </td>
-            <td>
-                <a href="@Url.Action("Aceite", "Avaliacao", new { id = item.id })"><span class='glyphicon glyphicon-thumbs-up' aria-hidden='true'></span></a>
-               <a href="@Url.Action("Details", "Avaliacao", new { id = item.id })"><span class='glyphicon glyphicon-zoom-in' aria-hidden='true'></span></a>
-                <!--<a href="@Url.Action("Aceite", "Avaliacao", new { id = item.id })"><span class='glyphicon glyphicon-zoom-in' aria-hidden='true'></span></a>-->
-                <a href="@Url.Action("Delete", "Avaliacao", new { id = item.id })"><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a>
-                
-                
-            </td>
-        </tr>
-    }
-    
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.filial.nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.imei.num_imei)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.usuario.login)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.aceite)
+                </td>
+
+                <td>
+                    R$@Html.DisplayFor(modelItem => item.valorAv)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.obs)
+                </td>
+                <td>
+                    <a href="@Url.Action("Aceite", "Avaliacao", new { id = item.id })"><span class='glyphicon glyphicon-thumbs-up' aria-hidden='true'></span></a>
+                    <a href="@Url.Action("Details", "Avaliacao", new { id = item.id })"><span class='glyphicon glyphicon-zoom-in' aria-hidden='true'></span></a>
+                    <!--<a href="@Url.Action("Delete", "Avaliacao", new { id = item.id })"><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a>-->
+                </td>
+            </tr>
+        }
+
     </table>
 </body>
 </html>

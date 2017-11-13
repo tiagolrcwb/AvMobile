@@ -65,10 +65,9 @@
                     @Html.DisplayFor(modelItem => item.obs)
                 </td>
                 <td>
-                    <a href="/Avaliacao/Edit/1"><span class='glyphicon glyphicon-thumbs-up' aria-hidden='true'></span></a>
-                    <a href="/Avaliacao/Edit/1"><span class='glyphicon glyphicon-zoom-in' aria-hidden='true'></span></a>
-                    <a href="/Avaliacao/Edit/1"><span class='glyphicon glyphicon-zoom-in' aria-hidden='true'></span></a>
-                    <a href="/Avaliacao/Edit/1"><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a>
+                    <a href="@Url.Action("Aceite", "Avaliacao", new { id = item.id })"><span class='glyphicon glyphicon-thumbs-up' aria-hidden='true'></span></a>
+                    <a href="@Url.Action("Details", "Avaliacao", new { id = item.id })"><span class='glyphicon glyphicon-zoom-in' aria-hidden='true'></span></a>
+                    
                 </td>
             </tr>
         }

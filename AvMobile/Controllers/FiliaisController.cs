@@ -71,7 +71,7 @@ namespace AvMobile.Controllers
         }
 
         /*######################## EDITAR #############################*/
-        public ActionResult Edit(long id)
+        public ActionResult Edit(int id)
         {
             if (id == null)
             {
@@ -88,8 +88,8 @@ namespace AvMobile.Controllers
         [HttpPost]
         public ActionResult Edit(Filial filial)
         {
-            GravarFilial(filial);
-            return View(filial);
+            ViewBag.cidadeId = new SelectList(cidadeServico.ObterCidadesClassificadasPorNome(), "id", "nome", filial.cidadeId);
+            return GravarFilial(filial);
         }
 
     }

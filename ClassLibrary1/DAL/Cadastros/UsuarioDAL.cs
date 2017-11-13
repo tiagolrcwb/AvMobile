@@ -19,7 +19,7 @@ namespace Persistencia.DAL.Cadastros
         }
         public void GravarUsuario(Usuario usuario)
         {
-            if (usuario.id == null)
+            if (usuario.id == 0)
             {
                 context.Tbl_Usuario.Add(usuario);
             }

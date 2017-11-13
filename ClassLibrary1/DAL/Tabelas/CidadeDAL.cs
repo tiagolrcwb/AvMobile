@@ -7,6 +7,8 @@ namespace Persistencia.DAL.Tabelas
     public class CidadeDAL
     {
         private EFContext context = new EFContext();
-        public IQueryable<Cidade> ObterCidadesClassificadasPorNome() { return context.Tbl_Cidade.OrderBy(b => b.nome); }
+        public IQueryable<Cidade> ObterCidadesClassificadasPorNome() {
+            return context.Tbl_Cidade.OrderBy(c => c.nome);
+        }
     }
 }

@@ -23,7 +23,7 @@ namespace Persistencia.DAL.Cadastros
         }
         public void GravarFilial(Filial filial)
         {
-            if (filial.id == null)
+            if (filial.id == 0)
             {
                 context.Tbl_Filial.Add(filial);
             }

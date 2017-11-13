@@ -22,11 +22,11 @@ namespace Persistencia.DAL.Cadastros
         }
         public Avaliacao ObterAvaliacaoPorId(long id)
         {
-            return context.Tbl_Avaliacao.Where(a => a.id == id).Include(a => a.usuario).Include(f => f.filial).Include(i => i.imei).Where(a => a.aceite == 0).First();
+            return context.Tbl_Avaliacao.Where(a => a.id == id).Include(a => a.usuario).Include(f => f.filial).Include(i => i.imei).First();
         }
         public void GravarAvaliacao(Avaliacao avaliacao)
         {
-            if (avaliacao.id == null)
+            if (avaliacao.id == 0)
             {
                 context.Tbl_Avaliacao.Add(avaliacao);
             }

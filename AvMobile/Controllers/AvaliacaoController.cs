@@ -97,8 +97,7 @@ namespace AvMobile.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Avaliacao avaliacao)
         {
-            GravarAvaliacao(avaliacao);
-            return RedirectToAction("Index");
+            return GravarAvaliacao(avaliacao);
         }
         public JsonResult ObterAparelho(int id)
         {
@@ -222,15 +221,14 @@ namespace AvMobile.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Aceite(Avaliacao avaliacao)
         {
-            GravarAvaliacao(avaliacao);
-            return View(avaliacao);
+            return GravarAvaliacao(avaliacao);
         }
 
 
         /*######################## DETALHES #############################*/
         public ActionResult Details(long id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }

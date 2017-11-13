@@ -1,13 +1,6 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Oracle.ManagedDataAccess;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Modelo.Cadastros;
 using System.Net;
-using System.Data.Entity;
 using Servicos.Cadastros;
 
 namespace AvMobile.Controllers
@@ -24,9 +17,9 @@ namespace AvMobile.Controllers
                 if (ModelState.IsValid)
                 {
                     aparelhoServico.GravarAparelho(aparelho);
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Lista");
                 }
-                return RedirectToAction("Lista");
+                return View(aparelho);
             }
             catch
             {
@@ -49,7 +42,7 @@ namespace AvMobile.Controllers
         }
         
 
-        /*######################## LISTA #############################*/
+        /*######################## INDEX #############################*/
         public ActionResult Index()
         {
             return View();
@@ -66,15 +59,16 @@ namespace AvMobile.Controllers
         public ActionResult Create(){
             return View();
         }
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
+       
+
         public ActionResult Create(Aparelho aparelho){
-            GravarAparelho(aparelho);
-            return RedirectToAction("Lista");
+            return GravarAparelho(aparelho);
         }
 
         /*######################## EDITAR #############################*/
-        public ActionResult Edit(long id){
+        public ActionResult Edit(int id){
             if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }

@@ -19,7 +19,7 @@ namespace Persistencia.DAL.Cadastros
         }
         public void GravarImei(Imei imei)
         {
-            if (imei.id == null)
+            if (imei.id == 0)
             {
                 context.Tbl_Imei.Add(imei);
             }

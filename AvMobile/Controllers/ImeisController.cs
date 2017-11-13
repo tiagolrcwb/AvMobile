@@ -64,8 +64,7 @@ namespace AvMobile.Controllers
         }
         [HttpPost]
         public ActionResult Create(Imei imei) {
-            GravarImei(imei);
-            return View("index");
+            return GravarImei(imei);
         }
 
 
@@ -84,9 +83,7 @@ namespace AvMobile.Controllers
         [HttpPost]
         public ActionResult Edit(Imei imei)
         {
-            GravarImei(imei);
-            return View(imei);
-            
+            return GravarImei(imei);            
         }
 
 
