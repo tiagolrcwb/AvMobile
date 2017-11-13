@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvMobile", "AvMobile\AvMobi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modelo", "Modelo\Modelo.csproj", "{3CF588AA-D271-4E0B-A4FA-142B257ACD78}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistencia", "ClassLibrary1\Persistencia.csproj", "{D11EDEB6-83F4-451A-B7D8-0E5D296F81FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Servico", "Servico\Servico.csproj", "{95268ADF-3471-40A0-AC8D-7C47829F2CEB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{3CF588AA-D271-4E0B-A4FA-142B257ACD78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CF588AA-D271-4E0B-A4FA-142B257ACD78}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3CF588AA-D271-4E0B-A4FA-142B257ACD78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D11EDEB6-83F4-451A-B7D8-0E5D296F81FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D11EDEB6-83F4-451A-B7D8-0E5D296F81FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D11EDEB6-83F4-451A-B7D8-0E5D296F81FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D11EDEB6-83F4-451A-B7D8-0E5D296F81FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95268ADF-3471-40A0-AC8D-7C47829F2CEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95268ADF-3471-40A0-AC8D-7C47829F2CEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95268ADF-3471-40A0-AC8D-7C47829F2CEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95268ADF-3471-40A0-AC8D-7C47829F2CEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,4 @@
-﻿using AvMobile.Contexts;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,10 +16,10 @@ namespace AvMobile.Controllers
 
     public class LoginController : Controller
     {
-        private EFContext context = new EFContext();
+        // private EFContext context = new EFContext();
         // GET: Login
 
-        public ActionResult index()
+        /*public ActionResult index()
         {
             return View();
         }
@@ -39,6 +39,6 @@ namespace AvMobile.Controllers
             }
            
             
-        }
+        }*/
     }
 }

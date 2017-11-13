@@ -1,4 +1,4 @@
-﻿using AvMobile.Contexts;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +9,17 @@ using Modelo.Cadastros;
 using System.Net;
 using System.Data.Entity;
 using System.Web.UI.WebControls;
+using Servicos.Cadastros;
 
 namespace AvMobile.Controllers
 {
     public class AvaliacaoController : Controller
     {
+        private AvaliacaoServico avaliacaoServico = new AvaliacaoServico();
+        private ImeiServico imeiServico = new ImeiServico();
+        private AparelhoServico aparelhoServico = new AparelhoServico();
+
+
         public enum AceiteEnum { NÃO, SIM};
         //Avaliação da Tela
         private static int p1_op1 = 0;  //Sem riscos
@@ -40,40 +46,69 @@ namespace AvMobile.Controllers
         private static int p5_op1 = 0; //Funcionando
         private static int p5_op2 = 10; //Defeito
 
+        private ActionResult GravarAvaliacao(Avaliacao avaliacao)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    avaliacaoServico.GravarAvaliacao(avaliacao);
+                    return RedirectToAction("Index");
+                }
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View(avaliacao);
+            }
+        }
 
-        private EFContext context = new EFContext();
+        private ActionResult ObterDetalhesAvaliacao(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Avaliacao avaliacao = avaliacaoServico.ObterAvaliacaoPorId((long)id);
+            if (avaliacao == null)
+            {
+                return HttpNotFound();
+            }
+            return View(avaliacao);
+        }
+
+
+
+
         /*######################## INDEX #############################*/
         public ActionResult Index()
         {
-            var avaliacoes = context.Tbl_Avaliacao.Include(a => a.usuario).Include(f => f.filial).Include(i => i.imei);
-            return View(avaliacoes);
+            return View(avaliacaoServico.ObterAvaliacoesClassificadasPorId());
         }
         /*######################## INSERIR #############################*/
         public ActionResult Create()
         {
             ViewBag.UsuarioId = 1;
             ViewBag.FilialId = 1;
-            ViewBag.imeiId = new SelectList(context.Tbl_Imei.OrderBy(i => i.num_imei), "id", "num_imei");
-
+            ViewBag.imeiId = new SelectList(imeiServico.ObterImeiClassificadasPorId(),"id", "num_imei");
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Avaliacao avaliacao)
         {
-            context.Tbl_Avaliacao.Add(avaliacao);
-            context.SaveChanges();
+            GravarAvaliacao(avaliacao);
             return RedirectToAction("Index");
         }
         public JsonResult ObterAparelho(int id)
         {
-            Aparelho aparelho = context.Tbl_Aparelho.Find(id);
+            Aparelho aparelho = aparelhoServico.ObterAparelhoPorId(id);
             return Json(aparelho, JsonRequestBehavior.AllowGet);
             
         }
         public JsonResult RetornaDesconto(string p, int op, int id)
         {
-            Aparelho aparelho = context.Tbl_Aparelho.Find(id);
+            Aparelho aparelho = aparelhoServico.ObterAparelhoPorId(id);
 
             if (p == "p1")
             {
@@ -162,19 +197,19 @@ namespace AvMobile.Controllers
         /*######################## ACEITAS #############################*/
         public ActionResult Aceitas()
         {
-            var avaliacoes = context.Tbl_Avaliacao.Include(a => a.usuario).Include(f => f.filial).Include(i => i.imei).Where(a =>a.aceite==1);
+            var avaliacoes = avaliacaoServico.ObterAvaliacoesAbertas();
             return View(avaliacoes);
         }
 
 
         /*######################## ACEITE #############################*/
-        public ActionResult Aceite(long? id)
+        public ActionResult Aceite(long id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Avaliacao avaliacao = context.Tbl_Avaliacao.Find(id);
+            Avaliacao avaliacao = avaliacaoServico.ObterAvaliacaoPorId(id);
             ViewBag.UsuarioId = 1;
             ViewBag.FilialId = 1;
             if (avaliacao == null)
@@ -187,26 +222,23 @@ namespace AvMobile.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Aceite(Avaliacao avaliacao)
         {
-            if (ModelState.IsValid)
-            {
-                context.Entry(avaliacao).State = EntityState.Modified;
-                context.SaveChanges(); return RedirectToAction("Index");
-            }
+            GravarAvaliacao(avaliacao);
             return View(avaliacao);
         }
 
 
         /*######################## DETALHES #############################*/
-        public ActionResult Details(long? id)
+        public ActionResult Details(long id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            
-            Avaliacao avaliacao = context.Tbl_Avaliacao.Where(a => a.id == id).Include(f => f.filial).Include(i => i.imei).Include(u =>u.usuario).First();
 
-            Aparelho aparelho = context.Tbl_Aparelho.Find(avaliacao.imei.aparelhoId);
+            Avaliacao avaliacao = avaliacaoServico.ObterAvaliacaoPorId(id);
+            Imei imei = imeiServico.ObterImeiPorId(avaliacao.imeiId);
+            Aparelho aparelho = aparelhoServico.ObterAparelhoPorId((int)imei.aparelhoId);
+
             ViewBag.Aparelho = aparelho.modelo;
             if (avaliacao == null)
             {
@@ -216,15 +248,15 @@ namespace AvMobile.Controllers
         }
 
         /*######################## DELETE #############################*/
-        public ActionResult Delete(long? id)
+       /* public ActionResult Delete(long id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Avaliacao avaliacao = context.Tbl_Avaliacao.Where(a => a.id == id).Include(f => f.filial).Include(i => i.imei).Include(u => u.usuario).First();
-
-            Aparelho aparelho = context.Tbl_Aparelho.Find(avaliacao.imei.aparelhoId);
+            Avaliacao avaliacao = avaliacaoServico.ObterAvaliacaoPorId(id);
+            Imei imei = imeiServico.ObterImeiPorId(avaliacao.imeiId);
+            Aparelho aparelho = aparelhoServico.ObterAparelhoPorId((int)imei.aparelhoId);
             ViewBag.Aparelho = aparelho.modelo;
 
 
@@ -238,11 +270,11 @@ namespace AvMobile.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(long id)
         {
-            Avaliacao avaliacao = context.Tbl_Avaliacao.Find(id);
+            Avaliacao avaliacao = avaliacaoServico.;
             context.Tbl_Avaliacao.Remove(avaliacao);
             context.SaveChanges();
             return RedirectToAction("Index");
-        }
+        }*/
 
 
 

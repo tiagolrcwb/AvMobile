@@ -1,6 +1,7 @@
-﻿using AvMobile.Contexts;
-using Modelo.Cadastros;
+﻿using Modelo.Cadastros;
 using Modelo.Tabelas;
+using Servicos.Cadastros;
+using Servicos.Tabelas;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -13,28 +14,20 @@ namespace AvMobile.Controllers
 {
     public class FiliaisController : Controller
     {
-        private EFContext context = new EFContext();
+        private CidadeServico cidadeServico= new CidadeServico();
+        private FilialServico filialServico = new FilialServico();
 
 
-        /*######################## INDEX #############################*/
-        public ActionResult Index(){
 
-            var filiais = context.Tbl_Filial.Include(f => f.cidade).Include(c => c.cidade);
-            return View(filiais);
-        }
-
-        public ActionResult Create()
-        {
-            ViewBag.cidadeId = new SelectList(context.Tbl_Cidade.OrderBy(c => c.nome), "id", "nome");
-            return View();
-        }
-        [HttpPost]
-        public ActionResult Create(Filial filial)
+        private ActionResult GravarFilial(Filial filial)
         {
             try
             {
-                context.Tbl_Filial.Add(filial);
-                context.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    filialServico.GravarFilial(filial);
+                    return RedirectToAction("Index");
+                }
                 return RedirectToAction("Index");
             }
             catch
@@ -43,37 +36,60 @@ namespace AvMobile.Controllers
             }
         }
 
-        /*######################## EDITAR #############################*/
-        public ActionResult Edit(long? id)
+        private ActionResult ObterDetalhesFilial(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Filial filial = context.Tbl_Filial.Find(id);
+            Filial filial = filialServico.ObterFilialPorId((long)id);
             if (filial == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.cidadeId = new SelectList(context.Tbl_Cidade.OrderBy(c => c.nome), "id", "nome", filial.cidadeId);
+            return View(filial);
+        }
+
+
+        /*######################## INDEX #############################*/
+        public ActionResult Index(){
+
+            var filiais = filialServico.ObterFiliaisClassificadasPorId();
+            return View(filiais);
+        }
+
+        public ActionResult Create()
+        {
+            ViewBag.cidadeId = new SelectList(cidadeServico.ObterCidadesClassificadasPorNome(), "id", "nome");
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Create(Filial filial)
+        {
+            GravarFilial(filial);
+            return RedirectToAction("Index");
+        }
+
+        /*######################## EDITAR #############################*/
+        public ActionResult Edit(long id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Filial filial = filialServico.ObterFilialPorId(id);
+            if (filial == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.cidadeId = new SelectList(cidadeServico.ObterCidadesClassificadasPorNome(), "id", "nome", filial.cidadeId);
             return View(filial);
         }
         [HttpPost]
         public ActionResult Edit(Filial filial)
         {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    context.Entry(filial).State = EntityState.Modified; context.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                return View(filial);
-            }
-            catch
-            {
-                return View(filial);
-            }
+            GravarFilial(filial);
+            return View(filial);
         }
 
     }

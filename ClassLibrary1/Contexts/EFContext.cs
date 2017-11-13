@@ -3,16 +3,21 @@ using Modelo.Tabelas;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Web;
 
-namespace AvMobile.Contexts
+namespace Persistencia.Contexts
 {
     public class EFContext : DbContext
     {
         public EFContext() : base("AvaliaMobile") {
             Database.SetInitializer<EFContext>(
                 new DropCreateDatabaseIfModelChanges<EFContext>());
+        }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder) {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
 
         public DbSet<Aparelho> Tbl_Aparelho { get; set; }

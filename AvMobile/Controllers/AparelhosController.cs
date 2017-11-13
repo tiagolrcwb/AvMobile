@@ -1,4 +1,4 @@
-﻿using AvMobile.Contexts;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,12 +8,46 @@ using System.Web.Mvc;
 using Modelo.Cadastros;
 using System.Net;
 using System.Data.Entity;
+using Servicos.Cadastros;
 
 namespace AvMobile.Controllers
 {
     public class AparelhosController : Controller
     {
-        private EFContext context = new EFContext();
+        //private EFContext context = new EFContext();
+        private AparelhoServico aparelhoServico = new AparelhoServico();
+
+        private ActionResult GravarAparelho(Aparelho aparelho)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    aparelhoServico.GravarAparelho(aparelho);
+                    return RedirectToAction("Index");
+                }
+                return RedirectToAction("Lista");
+            }
+            catch
+            {
+                return View(aparelho);
+            }
+        }
+
+        private ActionResult ObterDetalhesAparelho(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Aparelho aparelho = aparelhoServico.ObterAparelhoPorId((long)id);
+            if (aparelho == null)
+            {
+                return HttpNotFound();
+            }
+            return View(aparelho);
+        }
+        
 
         /*######################## LISTA #############################*/
         public ActionResult Index()
@@ -25,9 +59,8 @@ namespace AvMobile.Controllers
         /*######################## LISTA #############################*/
         public ActionResult Lista()
         {
-            return View(context.Tbl_Aparelho.OrderBy(m=>m.modelo));
+            return View(aparelhoServico.ObterAparelhosClassificadosPorNome());
         }
-
 
         /*######################## INSERIR #############################*/
         public ActionResult Create(){
@@ -36,17 +69,16 @@ namespace AvMobile.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Aparelho aparelho){
-            context.Tbl_Aparelho.Add(aparelho);
-            context.SaveChanges();
+            GravarAparelho(aparelho);
             return RedirectToAction("Lista");
         }
 
         /*######################## EDITAR #############################*/
-        public ActionResult Edit(long? id){
+        public ActionResult Edit(long id){
             if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Aparelho aparelho= context.Tbl_Aparelho.Find(id);
+            Aparelho aparelho = aparelhoServico.ObterAparelhoPorId(id);
             if (aparelho == null){
                 return HttpNotFound();
             }
@@ -56,46 +88,18 @@ namespace AvMobile.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Aparelho aparelho)
         {
-            if (ModelState.IsValid)
-            {
-                context.Entry(aparelho).State = EntityState.Modified;
-                context.SaveChanges(); return RedirectToAction("Lista");
-            }
-            return View(aparelho);
+            return GravarAparelho(aparelho);
         }
 
         /*######################## DETALHES #############################*/
         public ActionResult Details(long? id){
-            if (id == null) {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Aparelho aparelho= context.Tbl_Aparelho.Find(id);
-            if (aparelho == null) {
-                return HttpNotFound();
-            }
-            return View(aparelho);
+            return ObterDetalhesAparelho(id);
         }
 
-        /*######################## DELETE #############################*/
-        public ActionResult Delete(long? id)
-        {
-            if (id == null) {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Aparelho aparelho = context.Tbl_Aparelho.Find(id);
-            if (aparelho == null) {
-                return HttpNotFound();
-            }
-            return View(aparelho);
-        }
-        [HttpPost] [ValidateAntiForgeryToken]
-        public ActionResult Delete(long id) {
-            Aparelho aparelho = context.Tbl_Aparelho.Find(id);
-            context.Tbl_Aparelho.Remove(aparelho);
-            context.SaveChanges();
-            return RedirectToAction("Lista");
-        }
+       
 
+
+        
 
 
 

@@ -1,6 +1,7 @@
-﻿using AvMobile.Contexts;
+﻿
 using Modelo.Cadastros;
 using Modelo.Tabelas;
+using Servicos.Cadastros;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -13,27 +14,57 @@ namespace AvMobile.Controllers
 {
     public class UsuariosController : Controller
     {
-        private EFContext context = new EFContext();
+        private UsuarioServico usuarioServico= new UsuarioServico();
+        private FilialServico filialServico = new FilialServico();
+
+        private ActionResult GravarUsuario(Usuario usuario)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    usuarioServico.GravarUsuario(usuario);
+                    return RedirectToAction("Index");
+                }
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View(usuario);
+            }
+        }
+
+        private ActionResult ObterDetalhesUsuario(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Usuario usuario = usuarioServico.ObterUsuarioPorId((long)id);
+            if (usuario == null)
+            {
+                return HttpNotFound();
+            }
+            return View(usuario);
+        }
         // GET: Usuarios
         public ActionResult Index()
         {
-            var usuarios = context.Tbl_Usuario.Include(u => u.filial).Include(f => f.filial);
+            var usuarios = usuarioServico.ObterUsuariosClassificadasPorId();
             return View(usuarios);
-            //return View(context.Tbl_Usuario.OrderBy(u => u.id));
         }
 
         /*######################## INSERIR #############################*/
         public ActionResult Create()
         {
-            ViewBag.filialId = new SelectList(context.Tbl_Filial.OrderBy(f => f.nome), "id", "nome");
+            ViewBag.filialId = new SelectList(filialServico.ObterFiliaisClassificadasPorId(), "id", "nome");
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Usuario usuario)
         {
-            context.Tbl_Usuario.Add(usuario);
-            context.SaveChanges();
+            GravarUsuario(usuario);
             return RedirectToAction("Index");
         }
     }
