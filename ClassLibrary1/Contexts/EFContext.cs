@@ -1,4 +1,5 @@
-﻿using Modelo.Cadastros;
+﻿using ClassLibrary1.Migrations;
+using Modelo.Cadastros;
 using Modelo.Tabelas;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
@@ -15,10 +16,10 @@ namespace Persistencia.Contexts
         public DbSet<Estado> Tbl_Estado { get; set; }
         public DbSet<Avaliacao> Tbl_Avaliacao { get; set; }
 
+        
         public EFContext() : base("AvaliaMobile")
         {
-            Database.SetInitializer<EFContext>(
-                new DropCreateDatabaseIfModelChanges<EFContext>());
+            Database.SetInitializer<EFContext>(new MigrateDatabaseToLatestVersion<EFContext, Configuration>());
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

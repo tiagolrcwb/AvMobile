@@ -10,8 +10,8 @@ namespace Servicos.Cadastros
         {
             return aparelhoDAL.ObterAparelhosClassificadosPorNome();
         }
-        public Aparelho ObterAparelhoPorId(long id) {
-            return aparelhoDAL.ObterAparelhoPorId(id);
+        public Aparelho ObterAparelhoPorId(long? id) {
+            return aparelhoDAL.ObterAparelhoPorId((int)id);
         }
         public void GravarAparelho(Aparelho aparelho) {
             aparelhoDAL.GravarAparelho(aparelho);
