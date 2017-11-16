@@ -9,10 +9,10 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Avaliações Aceitas</title>
+    <title>Avaliações Recusadas</title>
 </head>
 <body>
-    <h4>Avaliações Aceitas</h4>
+    <h4>Avaliações Recusadas</h4>
     <table class="table">
         <tr>
             <th>
@@ -62,7 +62,7 @@
                 <td>
                     <a href="@Url.Action("Aceite", "Avaliacao", new { id = item.id })"><span class='glyphicon glyphicon-thumbs-up' aria-hidden='true'></span></a>
                     <a href="@Url.Action("Details", "Avaliacao", new { id = item.id })"><span class='glyphicon glyphicon-zoom-in' aria-hidden='true'></span></a>
-                    
+
                 </td>
             </tr>
         }

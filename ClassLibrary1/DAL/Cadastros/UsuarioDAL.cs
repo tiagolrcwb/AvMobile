@@ -30,5 +30,24 @@ namespace Persistencia.DAL.Cadastros
             context.SaveChanges();
         }
 
+        public Usuario ObterUsuarioPorLogin(string login)
+        {
+            try
+            {
+                var result = context.Tbl_Usuario.Where(u => u.login == login).First();
+                if (result != null)
+                {
+                    return result;
+                }
+                
+            }
+            catch
+            {
+                return null;
+            }
+            return null;
+        }
+        
+
     }
 }

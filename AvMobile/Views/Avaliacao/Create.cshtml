@@ -209,8 +209,8 @@
             </div>
             @Html.HiddenFor(model => model.valorAv, new { Value = 0 })
             @Html.HiddenFor(model => model.aceite, new { Value = 0 })
-            @Html.HiddenFor(model => model.usuarioId, new { Value = ViewBag.UsuarioId })
-            @Html.HiddenFor(model => model.filialId, new { Value = ViewBag.FilialId })
+            @Html.HiddenFor(model => model.usuarioId, new { Value = Session["usuarioId"] })
+            @Html.HiddenFor(model => model.filialId, new { Value = Session["usuarioFilial"] })
 
 
             <div class="form-group">

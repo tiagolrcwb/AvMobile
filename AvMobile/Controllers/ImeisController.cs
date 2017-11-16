@@ -17,6 +17,27 @@ namespace AvMobile.Controllers
         private AparelhoServico aparelhoServico = new AparelhoServico();
         private ImeiServico imeiServico = new ImeiServico();
 
+
+        //Metodo que verifica se existe um usuario logado e retorna a view solicitada na actionresult
+        public ActionResult Renderiza(Object view)
+        {
+            if (Session["usuarioId"] == null)
+            {
+                return RedirectToAction("Logar", "Login");
+            }
+            return View(view);
+        }
+        //Sobrecarga do metodo em caso de View vazia.
+        public ActionResult Renderiza()
+        {
+            if (Session["usuarioId"] == null)
+            {
+                return RedirectToAction("Logar", "Login");
+            }
+            return View();
+        }
+
+
         private ActionResult GravarImei(Imei imei)
         {
             try
@@ -52,7 +73,7 @@ namespace AvMobile.Controllers
         /*######################## INDEX #############################*/
         public ActionResult Index() {
             var imei = imeiServico.ObterImeiClassificadasPorId();
-            return View(imei);
+            return Renderiza(imei);
         }
 
 
@@ -60,7 +81,7 @@ namespace AvMobile.Controllers
         /*######################## INSERIR #############################*/
         public ActionResult Create() {
             ViewBag.aparelhoId = new SelectList(aparelhoServico.ObterAparelhosClassificadosPorNome(), "id", "modelo");
-            return View();
+            return Renderiza();
         }
         [HttpPost]
         public ActionResult Create(Imei imei) {
@@ -75,10 +96,10 @@ namespace AvMobile.Controllers
             }
             Imei imei = imeiServico.ObterImeiPorId(id);
             if (imei == null) {
-                return HttpNotFound();
+                return Renderiza(HttpNotFound());
             }
             ViewBag.aparelhoId = new SelectList(aparelhoServico.ObterAparelhosClassificadosPorNome(), "id", "modelo", imei.aparelhoId);
-            return View(imei);
+            return Renderiza(imei);
         }
         [HttpPost]
         public ActionResult Edit(Imei imei)
@@ -114,8 +135,8 @@ namespace AvMobile.Controllers
 
         /*######################## DETALHES #############################*/
         public ActionResult Details(long id) {
-            ObterDetalhesImei(id);
-            return View("index");
+            return Renderiza(ObterDetalhesImei(id));
+
         }
 
 

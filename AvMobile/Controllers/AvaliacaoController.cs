@@ -13,14 +13,16 @@ using Servicos.Cadastros;
 
 namespace AvMobile.Controllers
 {
-    public class AvaliacaoController : Controller
+
+public class AvaliacaoController : Controller
     {
+       
         private AvaliacaoServico avaliacaoServico = new AvaliacaoServico();
+        private UsuarioServico usuarioServico = new UsuarioServico();
         private ImeiServico imeiServico = new ImeiServico();
         private AparelhoServico aparelhoServico = new AparelhoServico();
-
-
         public enum AceiteEnum { NÃO, SIM};
+       
         //Avaliação da Tela
         private static int p1_op1 = 0;  //Sem riscos
         private static int p1_op2 = 10; //Riscada
@@ -46,65 +48,29 @@ namespace AvMobile.Controllers
         private static int p5_op1 = 0; //Funcionando
         private static int p5_op2 = 10; //Defeito
 
-        private ActionResult GravarAvaliacao(Avaliacao avaliacao)
+
+        //Metodo que verifica se existe um usuario logado e retorna a view solicitada na actionresult
+        public ActionResult Renderiza(Object view)
         {
-            try
+            if (Session["usuarioId"] == null)
             {
-                if (ModelState.IsValid)
-                {
-                    avaliacaoServico.GravarAvaliacao(avaliacao);
-                    return RedirectToAction("Index");
-                }
-                return RedirectToAction("Index");
+                return RedirectToAction("Logar", "Login");
             }
-            catch
-            {
-                return View(avaliacao);
-            }
+            return View(view);
         }
-
-        private ActionResult ObterDetalhesAvaliacao(long? id)
+        //Sobrecarga do metodo em caso de View vazia.
+        public ActionResult Renderiza()
         {
-            if (id == null)
+            if (Session["usuarioId"] == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Logar", "Login");
             }
-            Avaliacao avaliacao = avaliacaoServico.ObterAvaliacaoPorId((long)id);
-            if (avaliacao == null)
-            {
-                return HttpNotFound();
-            }
-            return View(avaliacao);
-        }
-
-
-
-
-        /*######################## INDEX #############################*/
-        public ActionResult Index()
-        {
-            return View(avaliacaoServico.ObterAvaliacoesClassificadasPorId());
-        }
-        /*######################## INSERIR #############################*/
-        public ActionResult Create()
-        {
-            ViewBag.UsuarioId = 1;
-            ViewBag.FilialId = 1;
-            ViewBag.imeiId = new SelectList(imeiServico.ObterImeiClassificadasPorId(),"id", "num_imei");
             return View();
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(Avaliacao avaliacao)
-        {
-            return GravarAvaliacao(avaliacao);
-        }
-        public JsonResult ObterAparelho(int id)
-        {
-            Aparelho aparelho = aparelhoServico.ObterAparelhoPorId(id);
-            return Json(aparelho, JsonRequestBehavior.AllowGet);
-            
-        }
+
+
+
+
         public JsonResult RetornaDesconto(string p, int op, int id)
         {
             Aparelho aparelho = aparelhoServico.ObterAparelhoPorId(id);
@@ -113,7 +79,7 @@ namespace AvMobile.Controllers
             {
                 if (op == 1)
                 {
-                    return Json((aparelho.valor * p1_op1)/100, JsonRequestBehavior.AllowGet);
+                    return Json((aparelho.valor * p1_op1) / 100, JsonRequestBehavior.AllowGet);
                 }
                 if (op == 2)
                 {
@@ -172,7 +138,7 @@ namespace AvMobile.Controllers
                 {
                     return Json((aparelho.valor * p4_op2) / 100, JsonRequestBehavior.AllowGet);
                 }
-              
+
             }
             if (p == "p5")
             {
@@ -193,11 +159,88 @@ namespace AvMobile.Controllers
             return Json(0, JsonRequestBehavior.AllowGet);
         }
 
+        private ActionResult GravarAvaliacao(Avaliacao avaliacao)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    avaliacaoServico.GravarAvaliacao(avaliacao);
+                    return RedirectToAction("Index");
+                }
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View(avaliacao);
+            }
+        }
+
+        private ActionResult ObterDetalhesAvaliacao(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Avaliacao avaliacao = avaliacaoServico.ObterAvaliacaoPorId((long)id);
+            if (avaliacao == null)
+            {
+                return HttpNotFound();
+            }
+            return View(avaliacao);
+        }
+
+
+
+
+        /*######################## INDEX #############################*/
+        
+        public ActionResult Index()
+        {
+            return Renderiza(avaliacaoServico.ObterAvaliacoesClassificadasPorId());
+            
+        }
+        /*######################## INSERIR #############################*/
+        public ActionResult Create()
+        {
+            ViewBag.imeiId = new SelectList(imeiServico.ObterImeiClassificadasPorId(),"id", "num_imei");
+            return Renderiza();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Avaliacao avaliacao)
+        {
+            return GravarAvaliacao(avaliacao);
+        }
+        public JsonResult ObterAparelho(int id)
+        {
+            Aparelho aparelho = aparelhoServico.ObterAparelhoPorId(id);
+            return Json(aparelho, JsonRequestBehavior.AllowGet);
+            
+        }
+        
+
+        /*######################## HOME #############################*/
+        public ActionResult Home()
+        {
+            return Renderiza();
+        }
+
         /*######################## ACEITAS #############################*/
-        public ActionResult Aceitas()
+        public ActionResult Abertas()
         {
             var avaliacoes = avaliacaoServico.ObterAvaliacoesAbertas();
-            return View(avaliacoes);
+            return Renderiza(avaliacoes);
+        }
+        public ActionResult Recusadas()
+        {
+            var avaliacoes = avaliacaoServico.ObterAvaliacoesRecusadas();
+            return Renderiza(avaliacoes);
+        }
+        public ActionResult Aceitas()
+        {
+            var avaliacoes = avaliacaoServico.ObterAvaliacoesAceitas();
+            return Renderiza(avaliacoes);
         }
 
 
@@ -206,16 +249,15 @@ namespace AvMobile.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return Renderiza(new HttpStatusCodeResult(HttpStatusCode.BadRequest));
             }
             Avaliacao avaliacao = avaliacaoServico.ObterAvaliacaoPorId(id);
-            ViewBag.UsuarioId = 1;
-            ViewBag.FilialId = 1;
+
             if (avaliacao == null)
             {
-                return HttpNotFound();
+                return Renderiza(HttpNotFound());
             }
-            return View(avaliacao);
+            return Renderiza(avaliacao);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -230,7 +272,7 @@ namespace AvMobile.Controllers
         {
             if (id == 0)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return Renderiza(new HttpStatusCodeResult(HttpStatusCode.BadRequest));
             }
 
             Avaliacao avaliacao = avaliacaoServico.ObterAvaliacaoPorId(id);
@@ -240,9 +282,9 @@ namespace AvMobile.Controllers
             ViewBag.Aparelho = aparelho.modelo;
             if (avaliacao == null)
             {
-                return HttpNotFound();
+                return Renderiza(HttpNotFound());
             }
-            return View(avaliacao);
+            return Renderiza(avaliacao);
         }
 
         /*######################## DELETE #############################*/

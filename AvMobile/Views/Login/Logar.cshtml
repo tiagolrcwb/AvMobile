@@ -1,0 +1,74 @@
+﻿@model Modelo.Cadastros.Usuario
+
+@{
+    ViewBag.Title = "Logar";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/content/bootstrap.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/content/avMobile.css")" rel="stylesheet" />
+    <style>
+        .login {
+            padding-top:100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="page-header	text-center titulo">
+                <h1>
+                    AvaliaMobile
+                </h1>
+                <small class="text-left">
+                    Software de Avaliação de Celulares
+                </small>
+
+            </div>
+        </div>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <h4 class="text-danger text-center">@ViewBag.erro</h4>
+            <div class="col-lg-4 col-lg-offset-4 login">
+                <h4 class="text-center">Faça o Login para Continuar</h4>
+                <br />
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">
+                        <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+                    </span>
+                    @Html.EditorFor(model => model.login, new { htmlAttributes = new { @class = "form-control", placeholder = "Login" } })
+                    @Html.ValidationMessageFor(model => model.login, "", new { @class = "text-danger" })
+                </div>
+                <br />
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                    </span>
+                    @Html.EditorFor(model => model.senha, new { htmlAttributes = new { @class = "form-control", placeholder = "Senha", @type = "password" } })
+                    @Html.ValidationMessageFor(model => model.senha, "", new { @class = "text-danger" })
+                </div>
+                <br />
+                <div class="form-group">
+                    <input type="submit" value="Logar" class="btn btn-primary col-lg-12" />
+                </div>
+            </div>
+        }
+</div>
+</body>
+
+</html>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#login-modal").fadeIn();
+    });
+</script>

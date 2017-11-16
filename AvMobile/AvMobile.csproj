@@ -186,13 +186,17 @@
     <Content Include="Views\Usuarios\Create.cshtml" />
     <Content Include="Views\Avaliacao\Index.cshtml" />
     <Content Include="Views\Avaliacao\Create.cshtml" />
-    <Content Include="Views\Login\index.cshtml" />
     <Content Include="Views\Avaliacao\Aceitas.cshtml" />
     <Content Include="Views\Avaliacao\Aceite.cshtml" />
     <Content Include="Views\Avaliacao\Details.cshtml" />
     <Content Include="Views\Avaliacao\Delete.cshtml" />
     <Content Include="Views\Filiais\Edit.cshtml" />
     <Content Include="Views\Filiais\Delete.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Login\Logar.cshtml" />
+    <Content Include="Views\Avaliacao\Home.cshtml" />
+    <Content Include="Views\Avaliacao\Abertas.cshtml" />
+    <Content Include="Views\Avaliacao\Recusadas.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

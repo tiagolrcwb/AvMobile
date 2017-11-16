@@ -2,13 +2,33 @@
 using Modelo.Cadastros;
 using System.Net;
 using Servicos.Cadastros;
+using System;
 
 namespace AvMobile.Controllers
 {
     public class AparelhosController : Controller
     {
-        //private EFContext context = new EFContext();
+
         private AparelhoServico aparelhoServico = new AparelhoServico();
+
+        //Metodo que verifica se existe um usuario logado e retorna a view solicitada na actionresult
+        public ActionResult Renderiza(Object view)
+        {
+            if (Session["usuarioId"] == null)
+            {
+                return RedirectToAction("Logar", "Login");
+            }
+            return View(view);
+        }
+        //Sobrecarga do metodo em caso de View vazia.
+        public ActionResult Renderiza()
+        {
+            if (Session["usuarioId"] == null)
+            {
+                return RedirectToAction("Logar", "Login");
+            }
+            return View();
+        }
 
         private ActionResult GravarAparelho(Aparelho aparelho)
         {
@@ -45,24 +65,22 @@ namespace AvMobile.Controllers
         /*######################## INDEX #############################*/
         public ActionResult Index()
         {
-            return View();
+            return Renderiza();
         }
 
 
         /*######################## LISTA #############################*/
         public ActionResult Lista()
         {
-            return View(aparelhoServico.ObterAparelhosClassificadosPorNome());
+            return Renderiza(aparelhoServico.ObterAparelhosClassificadosPorNome());
         }
 
         /*######################## INSERIR #############################*/
         public ActionResult Create(){
-            return View();
+            return Renderiza();
         }
 
         [HttpPost]
-       
-
         public ActionResult Create(Aparelho aparelho){
             return GravarAparelho(aparelho);
         }
@@ -74,9 +92,9 @@ namespace AvMobile.Controllers
             }
             Aparelho aparelho = aparelhoServico.ObterAparelhoPorId(id);
             if (aparelho == null){
-                return HttpNotFound();
+                return Renderiza(HttpNotFound());
             }
-            return View(aparelho);
+            return Renderiza(aparelho);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -87,7 +105,7 @@ namespace AvMobile.Controllers
 
         /*######################## DETALHES #############################*/
         public ActionResult Details(long? id){
-            return ObterDetalhesAparelho(id);
+            return Renderiza(ObterDetalhesAparelho(id));
         }
 
        

@@ -20,9 +20,11 @@
             </div>
         </div>
         <div class="row">
+            
             <div class="col-xs-2 col-md-2 menuPrincipal">
+                <small>Usuario Logado: @Session["usuarioNome"]</small>
                 <div class="btn-group-vertical col-md-12 botoesMenuPrincipal" role="group" aria-label="...">
-                    @Html.ActionLink("Home", "Index", "Aparelhos", new object { }, new { @class = "btn" })
+                    @Html.ActionLink("Home", "Home", "Avaliacao", new object { }, new { @class = "btn" })
                     
                     <div class="btn-group">
                         <button class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -55,12 +57,14 @@
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Todas as Avaliações", "Index", "Avaliacao", new object { }, new { @class = "btn" })</li>
                             <li>@Html.ActionLink("Avaliações Aceitas", "Aceitas", "Avaliacao", new object { }, new { @class = "btn" })</li>
+                            <li>@Html.ActionLink("Avaliações Abertas", "Abertas", "Avaliacao", new object { }, new { @class = "btn" })</li>
+                            <li>@Html.ActionLink("Avaliações Recusadas", "Recusadas", "Avaliacao", new object { }, new { @class = "btn" })</li>
                             <li role="separator" class="divider"></li>
                             <li>@Html.ActionLink("Nova Avaliação", "Create", "Avaliacao", new object { }, new { @class = "btn" })</li>
                         </ul>
                     </div>
                     @Html.ActionLink("Usuarios", "Index", "Usuarios", new object { }, new { @class = "btn" })
-                    @Html.ActionLink("Sair", "Index", "Views", new object { }, new { @class = "btn" })
+                    @Html.ActionLink("Sair", "Logar", "Login", new object { }, new { @class = "btn" })
                 </div>
             </div>
             <div class="col-xs-10 col-md-10">

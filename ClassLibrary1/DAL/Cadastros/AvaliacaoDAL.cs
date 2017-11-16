@@ -16,10 +16,17 @@ namespace Persistencia.DAL.Cadastros
         {
             return context.Tbl_Avaliacao.Include(a => a.usuario).Include(f => f.filial).Include(i => i.imei).Where(a => a.aceite == 1);
         }
+        
         public IQueryable ObterAvaliacoesAbertas()
         {
             return context.Tbl_Avaliacao.Include(a => a.usuario).Include(f => f.filial).Include(i => i.imei).Where(a => a.aceite == 0);
         }
+
+        public IQueryable ObterAvaliacoesRecusadas()
+        {
+            return context.Tbl_Avaliacao.Include(a => a.usuario).Include(f => f.filial).Include(i => i.imei).Where(a => a.aceite == 2);
+        }
+
         public Avaliacao ObterAvaliacaoPorId(long id)
         {
             return context.Tbl_Avaliacao.Where(a => a.id == id).Include(a => a.usuario).Include(f => f.filial).Include(i => i.imei).First();

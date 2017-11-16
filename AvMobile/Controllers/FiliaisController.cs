@@ -18,6 +18,25 @@ namespace AvMobile.Controllers
         private FilialServico filialServico = new FilialServico();
 
 
+        //Metodo que verifica se existe um usuario logado e retorna a view solicitada na actionresult
+        public ActionResult Renderiza(Object view)
+        {
+            if (Session["usuarioId"] == null)
+            {
+                return RedirectToAction("Logar", "Login");
+            }
+            return View(view);
+        }
+        //Sobrecarga do metodo em caso de View vazia.
+        public ActionResult Renderiza()
+        {
+            if (Session["usuarioId"] == null)
+            {
+                return RedirectToAction("Logar", "Login");
+            }
+            return View();
+        }
+
 
         private ActionResult GravarFilial(Filial filial)
         {
@@ -55,13 +74,13 @@ namespace AvMobile.Controllers
         public ActionResult Index(){
 
             var filiais = filialServico.ObterFiliaisClassificadasPorId();
-            return View(filiais);
+            return Renderiza(filiais);
         }
 
         public ActionResult Create()
         {
             ViewBag.cidadeId = new SelectList(cidadeServico.ObterCidadesClassificadasPorNome(), "id", "nome");
-            return View();
+            return Renderiza();
         }
         [HttpPost]
         public ActionResult Create(Filial filial)
@@ -80,10 +99,10 @@ namespace AvMobile.Controllers
             Filial filial = filialServico.ObterFilialPorId(id);
             if (filial == null)
             {
-                return HttpNotFound();
+                return Renderiza(HttpNotFound());
             }
             ViewBag.cidadeId = new SelectList(cidadeServico.ObterCidadesClassificadasPorNome(), "id", "nome", filial.cidadeId);
-            return View(filial);
+            return Renderiza(filial);
         }
         [HttpPost]
         public ActionResult Edit(Filial filial)

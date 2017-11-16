@@ -51,6 +51,8 @@
     <Compile Include="Tabelas\Estado.cs" />
     <Compile Include="Tabelas\Login.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Seguranca\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

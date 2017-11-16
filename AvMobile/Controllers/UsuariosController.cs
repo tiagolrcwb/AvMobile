@@ -17,6 +17,26 @@ namespace AvMobile.Controllers
         private UsuarioServico usuarioServico= new UsuarioServico();
         private FilialServico filialServico = new FilialServico();
 
+        //Metodo que verifica se existe um usuario logado e retorna a view solicitada na actionresult
+        public ActionResult Renderiza(Object view)
+        {
+            if (Session["usuarioId"] == null)
+            {
+                return RedirectToAction("Logar", "Login");
+            }
+            return View(view);
+        }
+        //Sobrecarga do metodo em caso de View vazia.
+        public ActionResult Renderiza()
+        {
+            if (Session["usuarioId"] == null)
+            {
+                return RedirectToAction("Logar", "Login");
+            }
+            return View();
+        }
+
+
         private ActionResult GravarUsuario(Usuario usuario)
         {
             try
@@ -51,14 +71,14 @@ namespace AvMobile.Controllers
         public ActionResult Index()
         {
             var usuarios = usuarioServico.ObterUsuariosClassificadasPorId();
-            return View(usuarios);
+            return Renderiza(usuarios);
         }
 
         /*######################## INSERIR #############################*/
         public ActionResult Create()
         {
             ViewBag.filialId = new SelectList(filialServico.ObterFiliaisClassificadasPorId(), "id", "nome");
-            return View();
+            return Renderiza();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]

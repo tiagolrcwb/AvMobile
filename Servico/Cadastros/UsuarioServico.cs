@@ -18,6 +18,11 @@ namespace Servicos.Cadastros
             return usuarioDAL.ObterUsuarioPorId(id);
         }
 
+        public Usuario ObterUsuarioPorLogin(string login)
+        {
+            return usuarioDAL.ObterUsuarioPorLogin(login);
+        }
+
         public void GravarUsuario(Usuario usuario)
         {
             usuarioDAL.GravarUsuario(usuario);

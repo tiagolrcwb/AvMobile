@@ -39,12 +39,23 @@
                         </label>
                         <label class="btn btn-danger">
                             Recusou a proposta
-                            @Html.RadioButtonFor(model => model.aceite, "0")
+                            @Html.RadioButtonFor(model => model.aceite, "2")
                         </label>
 
                     </div>
 
                     @Html.ValidationMessageFor(model => model.aceite, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <div class="control-label col-md-3">Observação:</div>
+                    <div class="col-md-4">
+
+                        @Html.TextAreaFor(model => model.obs, new { @class = "form-control" })
+
+                        @Html.ValidationMessageFor(model => model.obs, "", new { @class = "text-danger" })
+                    </div>
                 </div>
             </div>
 
@@ -53,9 +64,9 @@
               
             @Html.HiddenFor(model => model.valorAv, new { Value = Model.valorAv })
             @Html.HiddenFor(model => model.imeiId, new { Value = Model.imeiId })
-            @Html.HiddenFor(model => model.usuarioId, new { Value = ViewBag.UsuarioId })
-            @Html.HiddenFor(model => model.filialId, new { Value = ViewBag.FilialId })
-            @Html.HiddenFor(model => model.obs, new { Value = Model.obs})
+            @Html.HiddenFor(model => model.usuarioId, new { Value = Session["usuarioId"] })
+            @Html.HiddenFor(model => model.filialId, new { Value = Session["usuarioFilial"] })
+            
     
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
